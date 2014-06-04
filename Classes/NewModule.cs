@@ -62,7 +62,7 @@ namespace PRIZ
                 }
                 catch (System.IO.IOException)
                 {
-                    //MessageBox.Show("Файл задания открыт другой программой. Закройте его и повторите попытку");
+                    MessageBox.Show("Файл задания открыт другой программой. Закройте его и повторите попытку");
                 }
             }
             Serialize(name, r);

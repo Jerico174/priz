@@ -30,15 +30,6 @@ namespace PRIZ
             this.FormClosing += Program.ApplicationQuit;
             this.MouseWheel += new MouseEventHandler(tb_MouseWheel);
 
-            try
-            {
-                tbHypo.LoadFile(@"content/textSound.rtf", RichTextBoxStreamType.RichText);
-            }
-            catch (System.IO.FileNotFoundException)
-            {
-                tbHypo.Text = "Справочный файл удален или поврежден";
-            }
-
             DirectoryInfo dir = new DirectoryInfo(@"content\phenomenas");
             int counter = 5;
             foreach (var item in dir.GetFiles())
@@ -49,22 +40,32 @@ namespace PRIZ
                 phitem.AutoSize = true;
                 phitem.Cursor = Cursors.Hand;
                 phitem.BackColor = Color.Transparent;
-                if (counter==5)
-                {
-                    phitem.Font = new Font("Segoue UI", 11F, FontStyle.Bold);
-                    phitem.ForeColor = Color.FromArgb(255, 40, 179, 151);
-                }
-                else
-                {
-                    phitem.Font = new Font("Segoue UI", 11F, FontStyle.Regular);
-                    phitem.ForeColor = Color.FromArgb(255, 103, 103, 103);
-                }
                 phitem.Text = tempName.Remove(tempName.LastIndexOf(@"."));
                 phitem.Size = new Size(100, 20);
                 phitem.Click += phitem_Click;
-                if (Program.p.currentTask._phenomenas.IndexOf(phitem.Text)>0)
+                if (Program.p.currentTask._phenomenas.IndexOf(phitem.Text)>0 && tempName.IndexOf(@".rtf")>0)
                 {
                     pnlPhenomenas.Controls.Add(phitem);
+                    if (counter == 5)
+                    {
+                        phitem.Font = new Font("Segoue UI", 11F, FontStyle.Bold);
+                        phitem.ForeColor = Color.FromArgb(255, 40, 179, 151);
+                        try
+                        {
+                            pbHypo.ImageLocation = @"content/phenomenas/" + phitem.Text + ".gif";
+                        }
+                        catch (System.IO.FileNotFoundException)
+                        {
+                            pbHypo.Visible = false;
+                            tbHypo.Location = new Point(0, 149);
+                            tbHypo.Size = new Size(606, 327);
+                        }
+                    }
+                    else
+                    {
+                        phitem.Font = new Font("Segoue UI", 11F, FontStyle.Regular);
+                        phitem.ForeColor = Color.FromArgb(255, 103, 103, 103);
+                    }
                     counter += 25;
                 }
             }
@@ -87,6 +88,19 @@ namespace PRIZ
 	        }
             (sender as Label).ForeColor = Color.FromArgb(255, 40, 179, 151);
             (sender as Label).Font = new Font("Segoue UI", 11F, FontStyle.Bold);
+            try
+            {
+                pbHypo.ImageLocation = @"content/phenomenas/" + (sender as Label).Text + ".gif";
+                pbHypo.Visible = true;
+                tbHypo.Location = new Point(0, 149);
+                tbHypo.Size = new Size(606, 175);
+            }
+            catch (System.IO.FileNotFoundException)
+            {
+                pbHypo.Visible = false;
+                tbHypo.Location = new Point(342, 155);
+                tbHypo.Size = new Size(606, 327);
+            }
             try
             {
                 tbHypo.LoadFile(@"content/phenomenas/"+ (sender as Label).Text +".rtf", RichTextBoxStreamType.RichText);
@@ -440,6 +454,16 @@ namespace PRIZ
         private void Form_LocationChanged(object sender, EventArgs e)
         {
             Program.currentLocation = this.Location;
+        }
+
+        private void pbHypo_LoadCompleted(object sender, AsyncCompletedEventArgs e)
+        {
+            if (e.Error != null)
+            {
+                tbHypo.Location = new Point(0, 0);
+                tbHypo.Size = new Size(606, 327);
+                pbHypo.Visible = false;
+            }
         }
     }
 }
