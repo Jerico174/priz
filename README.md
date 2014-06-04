@@ -1,8 +1,4 @@
-**Будте осторожны!** `Download ZIP` может выдать вам старую версию.
-
-Список задач удобнее смотреть в [Issues](https://github.com/edele/priz/issues?state=open).
-
-[Обычный чеклист](https://gist.github.com/edele/9342586)
+[![Stories in Ready](https://badge.waffle.io/edele/priz.png?label=ready&title=Ready)](https://waffle.io/edele/priz)
 
 #ПРИЗ#
 *Практика решения исследовательских задач*
@@ -13,3 +9,7 @@
 Важная цель программы – научить пошаговому продумыванию задачи.
 Сейчас у Вас первая версия программы. 
 Она будет пополняться блоками задач.
+
+**PS:** камен сун уи хоуп
+
+![jv-dpjhj-w0](https://cloud.githubusercontent.com/assets/2607770/2648557/a08fe376-bf58-11e3-87c5-ed23b209d6dc.jpg)

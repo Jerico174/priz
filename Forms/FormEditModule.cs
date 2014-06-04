@@ -127,6 +127,7 @@ namespace PRIZ
         {
             Program.InitWindow(Forms.fNewModule);
             Program.fNewModule.Show();
+            //Program.p.currentModule = modules[modules.Count-1];
             bool b = true;
             Program.fNewModule.GetPlace(b);
             this.Hide();
@@ -330,9 +331,6 @@ namespace PRIZ
 
             private void btnModules_Click(object sender, EventArgs e)
             {
-                Program.fModules.WindowState = Program.fTask.WindowState;
-                Program.fModules.Size = Program.fTask.Size;
-                Program.fModules.Location = Program.fTask.Location;
                 Program.InitWindow(Forms.fModules);
                 Program.fModules.Show();
                 this.Hide();

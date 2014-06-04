@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormNewModule));
             this.btnAnotherModule = new System.Windows.Forms.Button();
             this.btnAddTasks = new System.Windows.Forms.Button();
@@ -44,8 +45,12 @@
             this.label3 = new System.Windows.Forms.Label();
             this.btnBackToTasks = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.pnlAdded = new System.Windows.Forms.Panel();
+            this.label4 = new System.Windows.Forms.Label();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.pnlWhite.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbImage)).BeginInit();
+            this.pnlAdded.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnAnotherModule
@@ -57,7 +62,7 @@
             this.btnAnotherModule.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAnotherModule.Font = new System.Drawing.Font("Segoe UI Light", 10F);
             this.btnAnotherModule.ForeColor = System.Drawing.Color.White;
-            this.btnAnotherModule.Location = new System.Drawing.Point(263, 263);
+            this.btnAnotherModule.Location = new System.Drawing.Point(263, 333);
             this.btnAnotherModule.Name = "btnAnotherModule";
             this.btnAnotherModule.Size = new System.Drawing.Size(197, 31);
             this.btnAnotherModule.TabIndex = 38;
@@ -74,7 +79,7 @@
             this.btnAddTasks.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAddTasks.Font = new System.Drawing.Font("Segoe UI Light", 10F);
             this.btnAddTasks.ForeColor = System.Drawing.Color.White;
-            this.btnAddTasks.Location = new System.Drawing.Point(561, 263);
+            this.btnAddTasks.Location = new System.Drawing.Point(561, 333);
             this.btnAddTasks.Name = "btnAddTasks";
             this.btnAddTasks.Size = new System.Drawing.Size(197, 31);
             this.btnAddTasks.TabIndex = 39;
@@ -84,9 +89,10 @@
             // 
             // pnlWhite
             // 
-            this.pnlWhite.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnlWhite.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnlWhite.Controls.Add(this.pnlAdded);
             this.pnlWhite.Controls.Add(this.btnAddTasks);
             this.pnlWhite.Controls.Add(this.btnAnotherModule);
             this.pnlWhite.Location = new System.Drawing.Point(-1, -2);
@@ -307,6 +313,36 @@
             this.label1.TabIndex = 75;
             this.label1.Text = "Новый модуль";
             // 
+            // pnlAdded
+            // 
+            this.pnlAdded.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnlAdded.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.pnlAdded.Controls.Add(this.label4);
+            this.pnlAdded.Location = new System.Drawing.Point(-5, 236);
+            this.pnlAdded.Name = "pnlAdded";
+            this.pnlAdded.Size = new System.Drawing.Size(1016, 216);
+            this.pnlAdded.TabIndex = 40;
+            this.pnlAdded.Visible = false;
+            // 
+            // label4
+            // 
+            this.label4.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Segoe UI Light", 21.75F);
+            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(113)))), ((int)(((byte)(113)))), ((int)(((byte)(113)))));
+            this.label4.Location = new System.Drawing.Point(393, 90);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(242, 40);
+            this.label4.TabIndex = 0;
+            this.label4.Text = "Модуль добавлен";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // timer1
+            // 
+            this.timer1.Interval = 1500;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // FormNewModule
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -333,6 +369,8 @@
             this.Text = "ПРИЗ";
             this.pnlWhite.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbImage)).EndInit();
+            this.pnlAdded.ResumeLayout(false);
+            this.pnlAdded.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -342,7 +380,6 @@
 
         private System.Windows.Forms.Button btnAnotherModule;
         private System.Windows.Forms.Button btnAddTasks;
-        private System.Windows.Forms.Panel pnlWhite;
         private System.Windows.Forms.TextBox tbModuleName;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.PictureBox pbImage;
@@ -355,6 +392,10 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnBackToTasks;
         private System.Windows.Forms.Label label1;
+        public System.Windows.Forms.Panel pnlWhite;
+        private System.Windows.Forms.Panel pnlAdded;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Timer timer1;
 
     }
 }

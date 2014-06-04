@@ -6,12 +6,14 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.IO;
 using System.Text.RegularExpressions;
 
 namespace PRIZ
 {
     public partial class FormEditTaskEntity : Form
     {
+        int counter = 5;
         bool error = false;
         bool def = false;
         string oldTaskName = Program.p.currentTask._name;
@@ -30,6 +32,25 @@ namespace PRIZ
             pbTask.BackgroundImageLayout = ImageLayout.Stretch;
             lDescription.Text = currentTask._description;
             lName.Text = currentTask._name;
+            DirectoryInfo dir = new DirectoryInfo(@"content\phenomenas");
+            foreach (var item in dir.GetFiles())
+            {
+                string tempName = item.Name;
+                PhenomenaItem phitem = new PhenomenaItem();
+                phitem.Location = new Point(0, counter);
+                counter += 40;
+                phitem.btnDelete.Visible = false;
+                phitem.btnEdit.Visible = false;
+                if (currentTask._phenomenas.IndexOf(phitem.lPhenomena.Text) > 0)
+                {
+                    phitem.lPhenomena.Checked = true;
+                }
+                phitem.lPhenomena.Text = tempName.Remove(tempName.LastIndexOf(@"."));
+                pnlPhenomenas.Controls.Add(phitem);
+            }
+
+            btnSaveChanges.Enabled = false;
+            btnSaveChanges.BackColor = Color.FromArgb(226, 226, 226);
         }
         
         private void pbTask_Click(object sender, EventArgs e)
@@ -115,11 +136,19 @@ namespace PRIZ
         {
             if (!error)
             {
+                string phenomenas = "";
+                foreach (var phenomena in pnlPhenomenas.Controls)
+                {
+                    if ((phenomena as CheckBox).Checked)
+                        phenomenas += (phenomena as CheckBox).Name + " - ";
+                }
                 string currentModule = Program.p.currentModule._filename;
-                NewTask newTask = new NewTask(lName.Text, lDescription.Text, pbTask.RectangleToScreen(pbTask.ClientRectangle), oldTaskName, currentModule);
+                NewTask newTask = new NewTask(lName.Text, lDescription.Text, pbTask.RectangleToScreen(pbTask.ClientRectangle), oldTaskName, currentModule, phenomenas);
                 oldTaskName = lName.Text;
                 pnlEdited.Visible = true;
                 timer1.Enabled = true;
+                btnSaveChanges.Enabled = false;
+                btnSaveChanges.BackColor = Color.FromArgb(226, 226, 226);
             }
         }
         private void timer1_Tick(object sender, EventArgs e)
@@ -131,7 +160,7 @@ namespace PRIZ
         private void tb_KeyPress(object sender, KeyPressEventArgs e)
         {
             char l = e.KeyChar;
-            if ((l < 'А' || l > 'я') && l != '\b' && l != '.' && l != ' ')
+            if (l == '\\' || l == '/' || l == ':' || l == '*' || l == '?' || l == '"' || l == '<' || l == '>' || l == '|')
             {
                 e.Handled = true;
             }
@@ -141,9 +170,7 @@ namespace PRIZ
         {
             if (MessageBox.Show("Вы уверены, что хотите сменить пользователя? Данные не будут сохранены." + Environment.NewLine + "Продолжить?", "Подтверждение", MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
-                Program.fLogin.WindowState = Program.fAllIdeas.WindowState;
-                Program.fLogin.Size = Program.fAllIdeas.Size;
-                Program.fLogin.Location = Program.fAllIdeas.Location;
+                Program.InitWindow(Forms.fLogin);
                 Program.fLogin.tbLogin.Text = "Фамилия и имя";
                 Program.fLogin.tbLogin.Font = new System.Drawing.Font("Segoe UI", 10.75F);
                 Program.fLogin.tbLogin.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(126)))), ((int)(((byte)(126)))));
@@ -181,9 +208,6 @@ namespace PRIZ
         {
             if (MessageBox.Show("Вы уверены, что хотите перейти в модули? Данные не будут сохранены." + Environment.NewLine + " Продолжить?", "Подтверждение", MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
-                Program.fModules.WindowState = Program.fTask.WindowState;
-                Program.fModules.Size = Program.fTask.Size;
-                Program.fModules.Location = Program.fTask.Location;
                 Program.InitWindow(Forms.fModules);
                 Program.fModules.Show();
                 this.Hide();
@@ -202,6 +226,12 @@ namespace PRIZ
             Program.InitWindow(Forms.fMailSender);
             //this.Hide();
             Program.fMailSender.ShowDialog();
+        }
+
+        private void lName_TextChanged(object sender, EventArgs e)
+        {
+            btnSaveChanges.Enabled = true;
+            btnSaveChanges.BackColor = Color.FromArgb(103, 103, 103);
         }
     }
 }

@@ -44,6 +44,8 @@
             this.btnBack = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.pnlPhenomenas = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.pbTask)).BeginInit();
             this.pnlEdited.SuspendLayout();
             this.SuspendLayout();
@@ -70,7 +72,8 @@
             this.lName.Location = new System.Drawing.Point(610, 117);
             this.lName.Name = "lName";
             this.lName.Size = new System.Drawing.Size(363, 45);
-            this.lName.TabIndex = 9;
+            this.lName.TabIndex = 1;
+            this.lName.TextChanged += new System.EventHandler(this.lName_TextChanged);
             this.lName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tb_KeyPress);
             // 
             // lDescription
@@ -81,7 +84,8 @@
             this.lDescription.Multiline = true;
             this.lDescription.Name = "lDescription";
             this.lDescription.Size = new System.Drawing.Size(363, 205);
-            this.lDescription.TabIndex = 10;
+            this.lDescription.TabIndex = 2;
+            this.lDescription.TextChanged += new System.EventHandler(this.lName_TextChanged);
             // 
             // btnSaveChanges
             // 
@@ -103,8 +107,8 @@
             // 
             // pnlEdited
             // 
-            this.pnlEdited.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnlEdited.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlEdited.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
             this.pnlEdited.Controls.Add(this.label1);
             this.pnlEdited.Location = new System.Drawing.Point(-12, 171);
@@ -263,13 +267,35 @@
             this.label4.TabIndex = 77;
             this.label4.Text = "Редактор заданий";
             // 
+            // label5
+            // 
+            this.label5.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label5.AutoSize = true;
+            this.label5.BackColor = System.Drawing.Color.Transparent;
+            this.label5.Font = new System.Drawing.Font("Segoe UI Light", 21F);
+            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(101)))), ((int)(((byte)(101)))), ((int)(((byte)(101)))));
+            this.label5.Location = new System.Drawing.Point(148, 394);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(341, 38);
+            this.label5.TabIndex = 80;
+            this.label5.Text = "Выберите нужные явления";
+            // 
+            // pnlPhenomenas
+            // 
+            this.pnlPhenomenas.AutoScroll = true;
+            this.pnlPhenomenas.Location = new System.Drawing.Point(155, 440);
+            this.pnlPhenomenas.Name = "pnlPhenomenas";
+            this.pnlPhenomenas.Size = new System.Drawing.Size(430, 175);
+            this.pnlPhenomenas.TabIndex = 79;
+            // 
             // FormEditTaskEntity
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1008, 688);
-            this.Controls.Add(this.pnlEdited);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.pnlPhenomenas);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.btnAbout);
@@ -281,6 +307,7 @@
             this.Controls.Add(this.lDescription);
             this.Controls.Add(this.lName);
             this.Controls.Add(this.pbTask);
+            this.Controls.Add(this.pnlEdited);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(1024, 726);
             this.Name = "FormEditTaskEntity";
@@ -315,5 +342,7 @@
         private System.Windows.Forms.Button btnBack;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Panel pnlPhenomenas;
     }
 }

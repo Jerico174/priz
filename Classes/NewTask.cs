@@ -15,10 +15,11 @@ namespace PRIZ
         public string _description;
         public string _given;
         public string _toFind;
+        public string _phenomenas;
 
         public NewTask() { }
 
-        public NewTask(string name, string given, Rectangle r, string oldTaskName, string currentModule)
+        public NewTask(string name, string given, Rectangle r, string oldTaskName, string currentModule,string phenomenas)
         {
             Task n = new Task();
             this._name = name;
@@ -27,10 +28,10 @@ namespace PRIZ
             {
                 Directory.Move(@"modules\" + currentModule + @"\" + oldTaskName, @"modules\" + currentModule + @"\" + _name);
             }
-            SerializeEdit(name, r, @"modules\" + currentModule + @"\" + _name);
+            SerializeEdit(name, r, @"modules\" + currentModule + @"\" + _name, phenomenas);
         }
 
-        private void SerializeEdit(string name, Rectangle r, string modulePath)
+        private void SerializeEdit(string name, Rectangle r, string modulePath,string phenomenas)
         {
             string path = modulePath;
             Task n = new Task();
@@ -38,17 +39,19 @@ namespace PRIZ
             n._description = this._description;
             n._toFind = this._toFind;
             n._given = this._given;
+            n._phenomenas = this._phenomenas;
             FileStream fs = new FileStream(path + @"\main.xml", FileMode.Create);
             XmlSerializer xs = new XmlSerializer(typeof(Task));
             xs.Serialize(fs, n);
             fs.Close();
             SaveImage(r, name, path);
         }
-        public NewTask(string name, string given, Rectangle r)
+        public NewTask(string name, string given, Rectangle r, string phenomenas)
         {
             Task n = new Task();
             this._name = name;
             this._description = given;
+            this._phenomenas = phenomenas;
             Serialize(name, r);
         }
         public void CreateFromXML(string path)
@@ -61,6 +64,7 @@ namespace PRIZ
             n._given = tempTask._given;
             n._toFind = tempTask._toFind;
             n._description = tempTask._description;
+            n._phenomenas = tempTask._phenomenas;
             fs.Close();
         }
         public void Serialize(string name, Rectangle r)
@@ -73,6 +77,7 @@ namespace PRIZ
                 n._description = this._description;
                 n._toFind = this._toFind;
                 n._given = this._given;
+                n._phenomenas = this._phenomenas;
                 FileStream fs = new FileStream(path, FileMode.Create);
                 XmlSerializer xs = new XmlSerializer(typeof(Task));
                 xs.Serialize(fs, n);
@@ -88,6 +93,7 @@ namespace PRIZ
                 n._description = this._description;
                 n._toFind = this._toFind;
                 n._given = this._given;
+                n._phenomenas = this._phenomenas;
                 XmlSerializer xs = new XmlSerializer(typeof(Task));
                 xs.Serialize(fs, n);
                 fs.Close();

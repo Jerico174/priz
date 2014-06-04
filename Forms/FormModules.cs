@@ -32,7 +32,17 @@ namespace PRIZ
             {
                 btnAddTask.Visible = true;
             }
-            string[] modulePaths = Directory.GetDirectories(@"modules");
+
+            string[] modulePaths = { };
+
+            try
+            {
+                modulePaths = Directory.GetDirectories(@"modules");
+            }
+            catch (DirectoryNotFoundException)
+            {
+                Directory.CreateDirectory("modules");
+            }
             /* read */
             modules = new List<Module>();
             foreach (string path in modulePaths)
@@ -66,6 +76,7 @@ namespace PRIZ
                     pbox.Location = new Point(0, ypos);
                     pbox.Size = new Size(430, 270);
                     pbox.ImageLocation = modules[i]._pic;
+                    pbox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
 
                     title.AutoSize = true;
                     title.Location = new Point(440, ypos);
@@ -84,7 +95,7 @@ namespace PRIZ
                     description.Font = new System.Drawing.Font("Segoe UI Light", 10F);
                     description.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(101)))), ((int)(((byte)(101)))), ((int)(((byte)(101)))));
                     description.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
-                    description.MaximumSize = new System.Drawing.Size(340, 0);
+                    description.MaximumSize = new System.Drawing.Size(340, 238);
                     description.Click += pbox_Click;
                     description.Cursor = System.Windows.Forms.Cursors.Hand;
                     description.Tag = i;
@@ -232,9 +243,7 @@ namespace PRIZ
 
         private void button1_Click(object sender, EventArgs e)
         {
-            /*Program.fLogin.WindowState = Program.fModules.WindowState;
-            Program.fLogin.Size = Program.fModules.Size;
-            Program.fLogin.Location = Program.fModules.Location;*/
+            Program.InitWindow(Forms.fLogin);
             Program.fLogin.tbLogin.Text = "Фамилия и имя";
             Program.fLogin.tbLogin.Font = new System.Drawing.Font("Segoe UI", 10.75F);
             Program.fLogin.tbLogin.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(126)))), ((int)(((byte)(126)))));

@@ -17,6 +17,7 @@ namespace PRIZ
         public string _given;
         public string _toFind;
         public string _path;
+        public string _phenomenas;
         public Task(){} // конструктор для сериализатора
 
         /// <summary>
@@ -25,11 +26,12 @@ namespace PRIZ
         /// <param name="name"></param>
         /// <param name="given"></param>
         /// <param name="toFind"></param>
-        public Task(string name, string given, string toFind)
+        public Task(string name, string given, string toFind, string phenomenas)
         {
             _name = name;
             _given = given;
             _toFind = toFind;
+            _phenomenas = phenomenas;
         }
 
         /// <summary>
@@ -54,6 +56,7 @@ namespace PRIZ
             _hints = tempTask._hints;
             _kstati = tempTask._kstati;
             _authors = tempTask._authors;
+            _phenomenas = tempTask._phenomenas;
 
             fs.Close();
         }

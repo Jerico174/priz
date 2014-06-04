@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Diagnostics;
+using System.IO;
 using System.Text.RegularExpressions;
 
 namespace PRIZ
@@ -28,15 +29,45 @@ namespace PRIZ
             btnLogoEducationEra.MouseLeave += Program.LogoMouseLeave;
             this.FormClosing += Program.ApplicationQuit;
             this.MouseWheel += new MouseEventHandler(tb_MouseWheel);
-            tbHypo.LoadFile(@"content/textSound.rtf", RichTextBoxStreamType.RichText);
 
-            phenomenaLabels = new List<Label>();
-            phenomenaLabels.Add(lblSound);
-            phenomenaLabels.Add(lblMagnetic);
-            phenomenaLabels.Add(lblElectrical);
-            phenomenaLabels.Add(lblThermal);
-            phenomenaLabels.Add(lblMechanical);
-            phenomenaLabels.Add(lblLight);
+            try
+            {
+                tbHypo.LoadFile(@"content/textSound.rtf", RichTextBoxStreamType.RichText);
+            }
+            catch (System.IO.FileNotFoundException)
+            {
+                tbHypo.Text = "Справочный файл удален или поврежден";
+            }
+
+            DirectoryInfo dir = new DirectoryInfo(@"content\phenomenas");
+            int counter = 5;
+            foreach (var item in dir.GetFiles())
+            {
+                string tempName = item.Name;
+                Label phitem = new Label();
+                phitem.Location = new Point(0, counter);
+                phitem.AutoSize = true;
+                phitem.Cursor = Cursors.Hand;
+                phitem.BackColor = Color.Transparent;
+                if (counter==5)
+                {
+                    phitem.Font = new Font("Segoue UI", 11F, FontStyle.Bold);
+                    phitem.ForeColor = Color.FromArgb(255, 40, 179, 151);
+                }
+                else
+                {
+                    phitem.Font = new Font("Segoue UI", 11F, FontStyle.Regular);
+                    phitem.ForeColor = Color.FromArgb(255, 103, 103, 103);
+                }
+                phitem.Text = tempName.Remove(tempName.LastIndexOf(@"."));
+                phitem.Size = new Size(100, 20);
+                phitem.Click += phitem_Click;
+                if (Program.p.currentTask._phenomenas.IndexOf(phitem.Text)>0)
+                {
+                    pnlPhenomenas.Controls.Add(phitem);
+                    counter += 25;
+                }
+            }
             if (Program.debug)
             {
                 answer._hypothesises.Add("Одна из идей заключается в планомерном распределении всех параметров, что не может не являться очевидным при дальнейшем развитии событий");
@@ -44,6 +75,25 @@ namespace PRIZ
                 answer._hypothesises.Add("Не исключено, что у нас просто недостаточно данных для совершение каких либо умозаключений");
                 lIdeas.Text = "Количество идей: " + answer._hypothesises.Count;
                 lIdeas.Font = new Font("Segoue UI", 11F, FontStyle.Underline);
+            }
+        }
+
+        void phitem_Click(object sender, EventArgs e)
+        {
+            foreach (var item in pnlPhenomenas.Controls)
+	        {
+                (item as Label).ForeColor = Color.FromArgb(255, 103, 103, 103);
+                (item as Label).Font = new Font("Segoue UI", 11F, FontStyle.Regular);
+	        }
+            (sender as Label).ForeColor = Color.FromArgb(255, 40, 179, 151);
+            (sender as Label).Font = new Font("Segoue UI", 11F, FontStyle.Bold);
+            try
+            {
+                tbHypo.LoadFile(@"content/phenomenas/"+ (sender as Label).Text +".rtf", RichTextBoxStreamType.RichText);
+            }
+            catch (System.IO.FileNotFoundException)
+            {
+                tbHypo.Text = "Справочный файл удален или поврежден";
             }
         }
 
@@ -220,28 +270,35 @@ namespace PRIZ
             Label lbl = sender as Label;
             lbl.Font = new System.Drawing.Font("Segoe UI", 11F, FontStyle.Bold);
             lbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(179)))), ((int)(((byte)(151)))));
-            switch (lbl.Name)
+            try
             {
-                case "lblSound":
-                    tbHypo.LoadFile(@"content/textSound.rtf", RichTextBoxStreamType.RichText);
-                    break;
-                case "lblMagnetic":
-                    tbHypo.LoadFile(@"content/textMagnetic.rtf", RichTextBoxStreamType.RichText);
-                    break;
-                case "lblElectrical":
-                    tbHypo.LoadFile(@"content/textElectrical.rtf", RichTextBoxStreamType.RichText);
-                    break;
-                case "lblThermal":
-                    tbHypo.LoadFile(@"content/textThermal.rtf", RichTextBoxStreamType.RichText);
-                    break;
-                case "lblMechanical":
-                    tbHypo.LoadFile(@"content/textMechanical.rtf", RichTextBoxStreamType.RichText);
-                    break;
-                case "lblLight":
-                    tbHypo.LoadFile(@"content/textLight.rtf", RichTextBoxStreamType.RichText);
-                    break;
-                default:
-                    break;
+                switch (lbl.Name)
+                {
+                    case "lblSound":
+                        tbHypo.LoadFile(@"content/textSound.rtf", RichTextBoxStreamType.RichText);
+                        break;
+                    case "lblMagnetic":
+                        tbHypo.LoadFile(@"content/textMagnetic.rtf", RichTextBoxStreamType.RichText);
+                        break;
+                    case "lblElectrical":
+                        tbHypo.LoadFile(@"content/textElectrical.rtf", RichTextBoxStreamType.RichText);
+                        break;
+                    case "lblThermal":
+                        tbHypo.LoadFile(@"content/textThermal.rtf", RichTextBoxStreamType.RichText);
+                        break;
+                    case "lblMechanical":
+                        tbHypo.LoadFile(@"content/textMechanical.rtf", RichTextBoxStreamType.RichText);
+                        break;
+                    case "lblLight":
+                        tbHypo.LoadFile(@"content/textLight.rtf", RichTextBoxStreamType.RichText);
+                        break;
+                    default:
+                        break;
+                }
+            }
+            catch (System.IO.FileNotFoundException)
+            {
+                tbHypo.Text = "Справочный файл удален или поврежден";
             }
             //tbHypo.Font = new System.Drawing.Font("Segoe UI Light", 13F);
         }
@@ -270,6 +327,7 @@ namespace PRIZ
         {
             if (MessageBox.Show("Вы уверены, что хотите сменить пользователя? Данные не будут сохранены." + Environment.NewLine + "Продолжить?", "Подтверждение", MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
+                Program.InitWindow(Forms.fLogin);
                 answer._hypothesises.Clear();
                 Program.fLogin.tbLogin.Text = "Фамилия и имя";
                 Program.fLogin.tbLogin.Font = new System.Drawing.Font("Segoe UI", 10.75F);
@@ -281,7 +339,7 @@ namespace PRIZ
 
         private void showTaskCond_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(Program.p.currentTask._name  + "\r\n\r\n" + Program.p.currentTask._given + "\r\n\r\n" + Program.p.currentTask._toFind, "Условие задачи");
+            MessageBox.Show(Program.p.currentTask._name  + "\r\n\r\n" + Program.p.currentTask._description, "Условие задачи");
         }
 
         private void lIdeas_Click(object sender, EventArgs e)
