@@ -159,10 +159,21 @@ namespace PRIZ
 
         private void btnEditTasks_Click(object sender, EventArgs e)
         {
-            Program.InitWindow(Forms.fEditTask);
-            Program.fEditTask.Show();
-            //CurrentProgram.p.currentModule._filename;
-            this.Hide();
+            if (changed)
+            {
+                if (MessageBox.Show("Вы уверены, что хотите перейти в модули? Данные не будут сохранены." + Environment.NewLine + " Продолжить?", "Подтверждение", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                {
+                    Program.InitWindow(Forms.fEditTask);
+                    Program.fEditTask.Show();
+                    this.Hide();
+                }
+            }
+            else
+            {
+                Program.InitWindow(Forms.fEditTask);
+                Program.fEditTask.Show();
+                this.Hide();
+            }
         }
         private void tb_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -170,7 +181,10 @@ namespace PRIZ
             if (l=='\\' ||  l=='/' ||  l==':' ||  l=='*' ||  l=='?' ||  l=='"' ||  l=='<' ||  l=='>' ||  l=='|')
             {
                 e.Handled = true;
-                bool changed = true;
+            }
+            else
+            {
+                changed = true;
             }
         }
 
@@ -260,9 +274,13 @@ namespace PRIZ
 
         private void lName_TextChanged(object sender, EventArgs e)
         {
-            bool changed = true;
             btnSaveChanges.Enabled = true;
             btnSaveChanges.BackColor = Color.FromArgb(103, 103, 103);
+        }
+
+        private void lDescription_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            changed = true;
         }
     }
 }

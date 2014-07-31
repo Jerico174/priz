@@ -231,6 +231,10 @@ namespace PRIZ
             {
                 e.Handled = true;
             }
+            else
+            {
+                changed = true;
+            }
         }
 
         private void label3_Click(object sender, EventArgs e)
@@ -318,7 +322,6 @@ namespace PRIZ
 
         private void lName_TextChanged(object sender, EventArgs e)
         {
-            changed = true;
             btnSaveChanges.Enabled = true;
             btnSaveChanges.BackColor = Color.FromArgb(103, 103, 103);
         }
@@ -340,6 +343,11 @@ namespace PRIZ
                 pitem.BackColor = Color.FromArgb(255, 214, 231, 188);
             }
             (sender as Button).BackColor = Color.FromArgb(255, 214, 231, 188);
+        }
+
+        private void lDescription_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            changed = true;
         }
     }
 }

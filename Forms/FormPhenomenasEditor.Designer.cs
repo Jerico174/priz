@@ -68,8 +68,8 @@
             this.tbPhenomenaContent.Size = new System.Drawing.Size(603, 420);
             this.tbPhenomenaContent.TabIndex = 3;
             this.tbPhenomenaContent.Text = "Описание явления";
-            this.tbPhenomenaContent.TextChanged += new System.EventHandler(this.tbPhenomenaName_TextChanged);
             this.tbPhenomenaContent.Enter += new System.EventHandler(this.tbPhenomenaContent_Enter);
+            this.tbPhenomenaContent.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbPhenomenaContent_KeyPress);
             this.tbPhenomenaContent.Leave += new System.EventHandler(this.tbPhenomenaContent_Leave);
             // 
             // panel1
@@ -197,7 +197,6 @@
             this.tbPhenomenaName.Size = new System.Drawing.Size(430, 44);
             this.tbPhenomenaName.TabIndex = 2;
             this.tbPhenomenaName.Text = "Название явления";
-            this.tbPhenomenaName.TextChanged += new System.EventHandler(this.tbPhenomenaName_TextChanged);
             this.tbPhenomenaName.Enter += new System.EventHandler(this.txtFrom_Enter);
             this.tbPhenomenaName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbPhenomenaName_KeyPress);
             this.tbPhenomenaName.Leave += new System.EventHandler(this.txtFrom_Leave);

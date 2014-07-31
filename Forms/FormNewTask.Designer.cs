@@ -46,7 +46,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.pnlPhenomenas = new System.Windows.Forms.Panel();
             this.label5 = new System.Windows.Forms.Label();
-            this.btnPhenomenaEditor = new System.Windows.Forms.Button();
             this.pnlAddPhenomenas = new System.Windows.Forms.Panel();
             this.label6 = new System.Windows.Forms.Label();
             this.bntCheckAll = new System.Windows.Forms.Button();
@@ -83,8 +82,8 @@
             this.tbGiven.Size = new System.Drawing.Size(363, 206);
             this.tbGiven.TabIndex = 3;
             this.tbGiven.Text = "Описание задания";
-            this.tbGiven.TextChanged += new System.EventHandler(this.tbTaskName_TextChanged);
             this.tbGiven.Enter += new System.EventHandler(this.descFrom_Enter);
+            this.tbGiven.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbGiven_KeyPress);
             this.tbGiven.Leave += new System.EventHandler(this.descFrom_Leave);
             // 
             // tbTaskName
@@ -97,7 +96,6 @@
             this.tbTaskName.Size = new System.Drawing.Size(363, 46);
             this.tbTaskName.TabIndex = 2;
             this.tbTaskName.Text = "Название задания";
-            this.tbTaskName.TextChanged += new System.EventHandler(this.tbTaskName_TextChanged);
             this.tbTaskName.Enter += new System.EventHandler(this.txtFrom_Enter);
             this.tbTaskName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tb_KeyPress);
             this.tbTaskName.Leave += new System.EventHandler(this.txtFrom_Leave);
@@ -303,23 +301,6 @@
             this.label5.TabIndex = 78;
             this.label5.Text = "Выберите нужные явления";
             // 
-            // btnPhenomenaEditor
-            // 
-            this.btnPhenomenaEditor.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.btnPhenomenaEditor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(103)))), ((int)(((byte)(103)))), ((int)(((byte)(103)))));
-            this.btnPhenomenaEditor.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnPhenomenaEditor.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(103)))), ((int)(((byte)(103)))), ((int)(((byte)(103)))));
-            this.btnPhenomenaEditor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnPhenomenaEditor.Font = new System.Drawing.Font("Segoe UI Light", 10F);
-            this.btnPhenomenaEditor.ForeColor = System.Drawing.Color.White;
-            this.btnPhenomenaEditor.Location = new System.Drawing.Point(423, 633);
-            this.btnPhenomenaEditor.Name = "btnPhenomenaEditor";
-            this.btnPhenomenaEditor.Size = new System.Drawing.Size(162, 31);
-            this.btnPhenomenaEditor.TabIndex = 79;
-            this.btnPhenomenaEditor.Text = "Редактор явлений";
-            this.btnPhenomenaEditor.UseVisualStyleBackColor = false;
-            this.btnPhenomenaEditor.Click += new System.EventHandler(this.btnPhenomenaEditor_Click);
-            // 
             // pnlAddPhenomenas
             // 
             this.pnlAddPhenomenas.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -369,7 +350,6 @@
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1008, 688);
             this.Controls.Add(this.pnlAddPhenomenas);
-            this.Controls.Add(this.btnPhenomenaEditor);
             this.Controls.Add(this.pnlAdded);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.pnlPhenomenas);
@@ -423,7 +403,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Panel pnlPhenomenas;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Button btnPhenomenaEditor;
         private System.Windows.Forms.Panel pnlAddPhenomenas;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button bntCheckAll;

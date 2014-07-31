@@ -46,7 +46,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.pnlPhenomenas = new System.Windows.Forms.Panel();
-            this.btnPhenomenaEditor = new System.Windows.Forms.Button();
             this.pnlAddPhenomenas = new System.Windows.Forms.Panel();
             this.label6 = new System.Windows.Forms.Label();
             this.bntCheckAll = new System.Windows.Forms.Button();
@@ -91,6 +90,7 @@
             this.lDescription.Size = new System.Drawing.Size(363, 205);
             this.lDescription.TabIndex = 2;
             this.lDescription.TextChanged += new System.EventHandler(this.lName_TextChanged);
+            this.lDescription.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.lDescription_KeyPress);
             // 
             // btnSaveChanges
             // 
@@ -293,23 +293,6 @@
             this.pnlPhenomenas.Size = new System.Drawing.Size(430, 144);
             this.pnlPhenomenas.TabIndex = 79;
             // 
-            // btnPhenomenaEditor
-            // 
-            this.btnPhenomenaEditor.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.btnPhenomenaEditor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(103)))), ((int)(((byte)(103)))), ((int)(((byte)(103)))));
-            this.btnPhenomenaEditor.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnPhenomenaEditor.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(103)))), ((int)(((byte)(103)))), ((int)(((byte)(103)))));
-            this.btnPhenomenaEditor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnPhenomenaEditor.Font = new System.Drawing.Font("Segoe UI Light", 10F);
-            this.btnPhenomenaEditor.ForeColor = System.Drawing.Color.White;
-            this.btnPhenomenaEditor.Location = new System.Drawing.Point(423, 633);
-            this.btnPhenomenaEditor.Name = "btnPhenomenaEditor";
-            this.btnPhenomenaEditor.Size = new System.Drawing.Size(162, 31);
-            this.btnPhenomenaEditor.TabIndex = 81;
-            this.btnPhenomenaEditor.Text = "Редактор явлений";
-            this.btnPhenomenaEditor.UseVisualStyleBackColor = false;
-            this.btnPhenomenaEditor.Click += new System.EventHandler(this.btnPhenomenaEditor_Click);
-            // 
             // pnlAddPhenomenas
             // 
             this.pnlAddPhenomenas.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -360,7 +343,6 @@
             this.ClientSize = new System.Drawing.Size(1008, 688);
             this.Controls.Add(this.pnlAddPhenomenas);
             this.Controls.Add(this.bntCheckAll);
-            this.Controls.Add(this.btnPhenomenaEditor);
             this.Controls.Add(this.pnlEdited);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.pnlPhenomenas);
@@ -413,7 +395,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Panel pnlPhenomenas;
-        private System.Windows.Forms.Button btnPhenomenaEditor;
         private System.Windows.Forms.Panel pnlAddPhenomenas;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button bntCheckAll;

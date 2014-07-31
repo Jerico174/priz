@@ -235,14 +235,13 @@ namespace PRIZ
         {
 
             char l = e.KeyChar;
+            if (l == '\\' || l == '/' || l == ':' || l == '*' || l == '?' || l == '"' || l == '<' || l == '>' || l == '|')
             {
-                if ((!(Char.IsLetterOrDigit(e.KeyChar))) && !((e.KeyChar == ' ')))
-                {
-                    if (e.KeyChar != (char)Keys.Back)
-                    {
-                        e.Handled = true;
-                    }
-                }
+                e.Handled = true;
+            }
+            else
+            {
+                changed = true;
             }
         }
         private void txtFrom_Enter(object sender, EventArgs e)
@@ -542,10 +541,11 @@ namespace PRIZ
             Program.currentSize=this.Size;
         }
 
-        private void tbPhenomenaName_TextChanged(object sender, EventArgs e)
+        private void tbPhenomenaContent_KeyPress(object sender, KeyPressEventArgs e)
         {
             changed = true;
         }
+
 
     }
 }

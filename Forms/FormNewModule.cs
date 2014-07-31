@@ -214,6 +214,10 @@ namespace PRIZ
             {
                 e.Handled = true;
             }
+            else
+            {
+                changed = true;
+            }
         }
 
         private void label3_Click(object sender, EventArgs e)
@@ -313,9 +317,10 @@ namespace PRIZ
             pnlAdded.Visible = false;
         }
 
-        private void tbModuleName_TextChanged(object sender, EventArgs e)
+        private void tbDescription_KeyPress(object sender, KeyPressEventArgs e)
         {
             changed = true;
         }
+
     }
 }

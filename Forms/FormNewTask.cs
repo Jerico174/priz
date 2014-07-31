@@ -253,6 +253,10 @@ namespace PRIZ
             {
                 e.Handled = true;
             }
+            else
+            {
+                changed = true;
+            }
         }
 
         private void label3_Click(object sender, EventArgs e)
@@ -356,9 +360,10 @@ namespace PRIZ
             (sender as Button).BackColor = Color.FromArgb(255, 214, 231, 188);
         }
 
-        private void tbTaskName_TextChanged(object sender, EventArgs e)
+        private void tbGiven_KeyPress(object sender, KeyPressEventArgs e)
         {
             changed = true;
         }
+
     }
 }

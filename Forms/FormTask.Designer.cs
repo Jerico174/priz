@@ -58,7 +58,6 @@
             this.pbTask.Size = new System.Drawing.Size(430, 270);
             this.pbTask.TabIndex = 0;
             this.pbTask.TabStop = false;
-            this.pbTask.Click += new System.EventHandler(this.pbTask_Click);
             // 
             // label1
             // 
@@ -71,7 +70,6 @@
             this.label1.Size = new System.Drawing.Size(311, 21);
             this.label1.TabIndex = 1;
             this.label1.Text = "Запишите условие задачи своими словами";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // tbGiven
             // 
@@ -84,7 +82,7 @@
             this.tbGiven.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.tbGiven.Size = new System.Drawing.Size(430, 95);
             this.tbGiven.TabIndex = 2;
-            this.tbGiven.TextChanged += new System.EventHandler(this.tbGiven_TextChanged);
+            this.tbGiven.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbGiven_KeyPress);
             // 
             // tbToFind
             // 
@@ -97,7 +95,7 @@
             this.tbToFind.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.tbToFind.Size = new System.Drawing.Size(430, 109);
             this.tbToFind.TabIndex = 3;
-            this.tbToFind.TextChanged += new System.EventHandler(this.tbToFind_TextChanged);
+            this.tbToFind.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbGiven_KeyPress);
             // 
             // lName
             // 
@@ -109,7 +107,6 @@
             this.lName.Size = new System.Drawing.Size(95, 13);
             this.lName.TabIndex = 4;
             this.lName.Text = "Название задачи";
-            this.lName.Click += new System.EventHandler(this.lName_Click);
             // 
             // lDescription
             // 
@@ -120,7 +117,6 @@
             this.lDescription.Size = new System.Drawing.Size(95, 13);
             this.lDescription.TabIndex = 5;
             this.lDescription.Text = "Описание задачи";
-            this.lDescription.Click += new System.EventHandler(this.lDescription_Click);
             // 
             // btnToTheNextForm
             // 
@@ -282,7 +278,6 @@
             this.label2.Size = new System.Drawing.Size(44, 19);
             this.label2.TabIndex = 17;
             this.label2.Text = "Дано:";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // label3
             // 
@@ -295,7 +290,6 @@
             this.label3.Size = new System.Drawing.Size(49, 19);
             this.label3.TabIndex = 18;
             this.label3.Text = "Найти:";
-            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // btnLogoEducationEra
             // 

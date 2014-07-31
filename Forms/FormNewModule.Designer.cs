@@ -136,7 +136,6 @@
             this.tbModuleName.Size = new System.Drawing.Size(363, 46);
             this.tbModuleName.TabIndex = 41;
             this.tbModuleName.Text = "Название модуля";
-            this.tbModuleName.TextChanged += new System.EventHandler(this.tbModuleName_TextChanged);
             this.tbModuleName.Enter += new System.EventHandler(this.txtFrom_Enter);
             this.tbModuleName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tb_KeyPress);
             this.tbModuleName.Leave += new System.EventHandler(this.txtFrom_Leave);
@@ -186,8 +185,8 @@
             this.tbDescription.Size = new System.Drawing.Size(363, 204);
             this.tbDescription.TabIndex = 42;
             this.tbDescription.Text = "Описание модуля";
-            this.tbDescription.TextChanged += new System.EventHandler(this.tbModuleName_TextChanged);
             this.tbDescription.Enter += new System.EventHandler(this.descFrom_Enter);
+            this.tbDescription.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbDescription_KeyPress);
             this.tbDescription.Leave += new System.EventHandler(this.descFrom_Leave);
             // 
             // label2

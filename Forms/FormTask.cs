@@ -12,6 +12,7 @@ namespace PRIZ
 {
     public partial class FormTask : Form
     {
+        bool changed = false;
         Task currentTask = Program.p.currentTask;
         Answer answer = Program.p.answer;
         public FormTask()
@@ -224,44 +225,9 @@ namespace PRIZ
             Program.currentLocation = this.DesktopLocation;
         }
 
-        private void lName_Click(object sender, EventArgs e)
+        private void tbGiven_KeyPress(object sender, KeyPressEventArgs e)
         {
-
-        }
-
-        private void lDescription_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tbGiven_TextChanged(object sender, EventArgs e)
-        {
-            //sss
-        }
-
-        private void tbToFind_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pbTask_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
+            changed = true;
         }
     }
 }

@@ -286,6 +286,7 @@
             this.lDescription.Size = new System.Drawing.Size(363, 216);
             this.lDescription.TabIndex = 3;
             this.lDescription.TextChanged += new System.EventHandler(this.lName_TextChanged);
+            this.lDescription.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.lDescription_KeyPress);
             // 
             // FormEditModuleEntity
             // 
