@@ -236,7 +236,7 @@ namespace PRIZ
 
         private void tbGiven_TextChanged(object sender, EventArgs e)
         {
-
+            //sss
         }
 
         private void tbToFind_TextChanged(object sender, EventArgs e)
