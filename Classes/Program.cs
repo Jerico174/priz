@@ -28,7 +28,9 @@ namespace PRIZ
         fDeleteConform,
         fDeleteConformTask,
         fEditModuleEntity,
-        fEditTaskEntity
+        fEditTaskEntity,
+        fFullImage,
+        fPhenomenasEditor
     }
 
 
@@ -62,6 +64,8 @@ namespace PRIZ
         static public FormDeleteConformTask fDeleteConformTask;
         static public FormEditModuleEntity fEditModuleEntity;
         static public FormEditTaskEntity fEditTaskEntity;
+        static public FormFullImage fFullImage;
+        static public FormPhenomenasEditor fPhenomenasEditor;
         private static DateTime endProgram = Convert.ToDateTime("11/02/2014");
         static public bool debug = false;
         [STAThread]
@@ -77,8 +81,16 @@ namespace PRIZ
 
 
             p = new ProgramInstance();
-            fLogin = new FormLogin();
-            Application.Run(fLogin);
+            if (Program.p.AdminMode)
+            {
+                fModules = new FormModule();
+                Application.Run(fModules);
+            }
+            else
+            {
+                fLogin = new FormLogin();
+                Application.Run(fLogin);
+            }
         }
 
         static public void ApplicationQuit(object sender, FormClosingEventArgs e)
@@ -184,6 +196,12 @@ namespace PRIZ
                     break;
                 case Forms.fDeleteConformTask:
                     fDeleteConformTask = new FormDeleteConformTask();
+                    break;
+                case Forms.fFullImage:
+                    fFullImage = new FormFullImage();
+                    break;
+                case Forms.fPhenomenasEditor:
+                    fPhenomenasEditor = new FormPhenomenasEditor();
                     break;
                 default:
                     break;

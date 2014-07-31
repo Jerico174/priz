@@ -21,6 +21,11 @@ namespace PRIZ
         public FormAllIdeas()
         {
             InitializeComponent();
+            if (Program.p.AdminMode)
+            {
+                lbUserName.Visible = false;
+                label4.Visible = false;
+            }
             this.FormClosing += Program.ApplicationQuit;
             this.Size = Program.currentSize;
             this.Location = Program.currentLocation;
@@ -156,6 +161,7 @@ namespace PRIZ
             if (MessageBox.Show("Вы уверены, что хотите сменить пользователя? Данные не будут сохранены." + Environment.NewLine + "Продолжить?", "Подтверждение", MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
                 Program.InitWindow(Forms.fLogin);
+                Program.fLogin.StartPosition = FormStartPosition.Manual;
                 answer._hypothesises.Clear();
                 Program.fLogin.tbLogin.Text = "Фамилия и имя";
                 Program.fLogin.tbLogin.Font = new System.Drawing.Font("Segoe UI", 10.75F);
@@ -237,15 +243,30 @@ namespace PRIZ
                     frm2.Close();
                     lAllHypo.Items.RemoveAt(answer._currentIndex);
                     lAllHypo.Items.Insert(answer._currentIndex, frm2.GetText());
-                }  
+                }
             }
+            UpdateItemsCount();
         }
 
         private void btnRemoveSelectedItem_Click(object sender, EventArgs e)
         {
             lAllHypo.Items.Remove(lAllHypo.SelectedItem);
+            UpdateItemsCount();
         }
 
+        private void UpdateItemsCount()
+        {
+            if (lAllHypo.Items.Count==0)
+            {
+                btnReport.Enabled = false;
+                btnReport.BackColor = Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            }
+            else
+            {
+                btnReport.Enabled=true;
+                btnReport.BackColor = Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(126)))), ((int)(((byte)(126)))));
+            }
+        }
         private void btnAddIdea_Click(object sender, EventArgs e)
         {
             frm2 = new FormEditOrAddIdea();
@@ -259,7 +280,8 @@ namespace PRIZ
             {
                 frm2.Close();
                 lAllHypo.Items.Add(frm2.GetText());
-            }  
+            }
+            UpdateItemsCount();
         }
 
         private void tbAddOrEditIdea_Enter(object sender, EventArgs e)
@@ -324,9 +346,6 @@ namespace PRIZ
         {
             //Cursor = Cursors.Default;
         }
-
-
-
     }
 
     public class UserSortableListBox : ListBox

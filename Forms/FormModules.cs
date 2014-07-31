@@ -18,6 +18,14 @@ namespace PRIZ
         public FormModule()
         {
             InitializeComponent();
+            if (Program.p.AdminMode)
+            {
+                btnBack.Visible = false;
+                lName.Visible = false;
+                label3.Visible = false;
+                btnAddTask.Visible = true;
+                btnAddPhenomenas.Visible = true;
+            }
             this.Size = Program.currentSize;
             btnLogoCreativeThinker.MouseEnter += Program.LogoMouseEnter;
             btnLogoCreativeThinker.MouseLeave += Program.LogoMouseLeave;
@@ -30,7 +38,7 @@ namespace PRIZ
             this.MouseWheel += new MouseEventHandler(tb_MouseWheel);
             if (status=="Учитель")
             {
-                btnAddTask.Visible = true;
+                //btnAddTask.Visible = true;
             }
 
             string[] modulePaths = { };
@@ -244,6 +252,7 @@ namespace PRIZ
         private void button1_Click(object sender, EventArgs e)
         {
             Program.InitWindow(Forms.fLogin);
+            Program.fLogin.StartPosition = FormStartPosition.Manual;
             Program.fLogin.tbLogin.Text = "Фамилия и имя";
             Program.fLogin.tbLogin.Font = new System.Drawing.Font("Segoe UI", 10.75F);
             Program.fLogin.tbLogin.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(126)))), ((int)(((byte)(126)))));
@@ -258,6 +267,7 @@ namespace PRIZ
             Program.fLogin.Size = Program.fModules.Size;
             Program.fLogin.Location = Program.fModules.Location;*/
             Program.InitWindow(Forms.fLogin);
+            Program.fLogin.StartPosition = FormStartPosition.Manual;
             Program.fLogin.Show();
             this.Hide();
         }
@@ -282,6 +292,13 @@ namespace PRIZ
         {
             Program.InitWindow(Forms.fEditModule);
             Program.fEditModule.Show();
+            this.Hide();
+        }
+
+        private void btnAddPhenomenas_Click(object sender, EventArgs e)
+        {
+            Program.InitWindow(Forms.fPhenomenasEditor);
+            Program.fPhenomenasEditor.Show();
             this.Hide();
         }
 

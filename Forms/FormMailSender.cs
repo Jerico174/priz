@@ -107,8 +107,11 @@ namespace PRIZ
         private void txtFrom_Enter(object sender, EventArgs e)
         {
             _earlierText = (sender as TextBox).Text;
-            (sender as TextBox).Text = "";
-            (sender as TextBox).ForeColor = Color.Black;
+            if (_earlierText=="example@mail.com")
+            {
+                (sender as TextBox).Text = "";
+                (sender as TextBox).ForeColor = Color.Black;
+            }
         }
 
         private void txtFrom_Leave(object sender, EventArgs e)
@@ -116,7 +119,7 @@ namespace PRIZ
             if ((sender as TextBox).Text == "")
             {
                 (sender as TextBox).ForeColor = Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(126)))), ((int)(((byte)(126)))));
-                (sender as TextBox).Text = _earlierText;
+                (sender as TextBox).Text = "example@mail.com";
             }
         }
     }

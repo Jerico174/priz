@@ -21,6 +21,7 @@ namespace PRIZ
                 btnBackToTasks.Visible = true;
             }
         }
+        bool changed = false;
         bool error = false;
         bool def = true;
         public static string _currentModuleName;
@@ -29,6 +30,11 @@ namespace PRIZ
         public FormNewModule()
         {
             InitializeComponent();
+            if (Program.p.AdminMode)
+            {
+                label2.Visible = false;
+                label3.Visible = false;
+            }
             this.FormClosing += Program.ApplicationQuit;
             pnlWhite.Visible = false;
             label2.Text = Program.p.CurrentFullName;
@@ -143,7 +149,14 @@ namespace PRIZ
 
         private void btnCreateModule_Click(object sender, EventArgs e)
         {
-            if (tbModuleName.Text == "" || tbModuleName.Text == "Название модуля" || tbDescription.Text == "Описание модуля")
+            changed = false;
+            tbModuleName.Text.Trim();
+            tbModuleName.Text = Program.p.ReplaceMultispaces(tbModuleName.Text);
+            if (tbDescription.Text == "Описание модуля")
+            {
+                tbDescription.Text = "";
+            }
+            if (tbModuleName.Text== " " || tbModuleName.Text == "" || tbModuleName.Text == "Название модуля")
             {
                 MessageBox.Show("Заполнены не все поля");
             }
@@ -158,6 +171,7 @@ namespace PRIZ
                     NewModule newModule = new NewModule(tbModuleName.Text, tbDescription.Text, pbImage.RectangleToScreen(pbImage.ClientRectangle));
                     pnlWhite.Visible = true;
                     pnlWhite.BringToFront();
+                    Program.p.currentModuleFilename = tbModuleName.Text;
                 }
             }
         }
@@ -172,6 +186,7 @@ namespace PRIZ
 
         private void btnAddTasks_Click(object sender, EventArgs e)
         {
+
             Program.InitWindow(Forms.fNewTask);
             Program.fNewTask.Show();
             this.Hide();
@@ -195,7 +210,7 @@ namespace PRIZ
         private void tb_KeyPress(object sender, KeyPressEventArgs e)
         {
             char l = e.KeyChar;
-            if ((l < 'А' || l > 'я') && l != '\b' && l != '.' && l!=' ')
+            if (l == '\\' || l == '/' || l == ':' || l == '*' || l == '?' || l == '"' || l == '<' || l == '>' || l == '|')
             {
                 e.Handled = true;
             }
@@ -216,9 +231,21 @@ namespace PRIZ
 
         private void btnBack_Click(object sender, EventArgs e)
         {
-            Program.InitWindow(Forms.fModules);
-            Program.fModules.Show();
-            this.Hide();
+            if (changed)
+            {
+                if (MessageBox.Show("Вы уверены, что хотите перейти в модули? Данные не будут сохранены." + Environment.NewLine + " Продолжить?", "Подтверждение", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                {
+                    Program.InitWindow(Forms.fModules);
+                    Program.fModules.Show();
+                    this.Hide();
+                }
+            }
+            else
+            {
+                Program.InitWindow(Forms.fModules);
+                Program.fModules.Show();
+                this.Hide();
+            }
         }
         private void Form_SizeChanged(object sender, EventArgs e)
         {
@@ -249,7 +276,16 @@ namespace PRIZ
 
         private void btnModules_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Вы уверены, что хотите перейти в модули? Данные не будут сохранены." + Environment.NewLine + " Продолжить?", "Подтверждение", MessageBoxButtons.OKCancel) == DialogResult.OK)
+            if (changed)
+            {
+                if (MessageBox.Show("Вы уверены, что хотите перейти в модули? Данные не будут сохранены." + Environment.NewLine + " Продолжить?", "Подтверждение", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                {
+                    Program.InitWindow(Forms.fModules);
+                    Program.fModules.Show();
+                    this.Hide();
+                }
+            }
+            else
             {
                 Program.InitWindow(Forms.fModules);
                 Program.fModules.Show();
@@ -275,6 +311,11 @@ namespace PRIZ
         {
             timer1.Stop();
             pnlAdded.Visible = false;
+        }
+
+        private void tbModuleName_TextChanged(object sender, EventArgs e)
+        {
+            changed = true;
         }
     }
 }

@@ -16,13 +16,26 @@ namespace PRIZ
         public FormEditTask()
         {
             InitializeComponent();
+            if (Program.p.AdminMode)
+            {
+                label2.Visible = false;
+                label3.Visible = false;
+            }
             this.FormClosing += Program.ApplicationQuit;
             this.MouseWheel += new MouseEventHandler(tb_MouseWheel);
+            Module currentModule = Program.p.currentModule;
             this.Size = Program.currentSize;
             this.Location = Program.currentLocation;
             label2.Text = Program.p.CurrentFullName;
             string[] modulePaths = {};
-            modulePaths = Directory.GetDirectories(@"modules/" + Program.p.currentModule._filename + @"/");
+            try
+            {
+                modulePaths = Directory.GetDirectories(@"modules/" + currentModule._filename + @"/");
+            }
+            catch (NullReferenceException)
+            {
+                modulePaths = Directory.GetDirectories(@"modules/" + Program.p.currentModuleFilename + @"/");
+            }
             // read 
             tasks = new List<Task>();
             /*Task task01 = new Task("Космические шаттлы", "Есть шаттлы и космос", "Найдите ответ на все вопросы"); //(string name, string given, string toFind)
@@ -213,8 +226,17 @@ namespace PRIZ
             else if (dr == DialogResult.OK)
             {
                 frm.Close();
-                DirectoryInfo dir = new DirectoryInfo(@"modules\" + Program.p.currentModule._filename + @"\" + Program.p.currentTask._name);
-                dir.Delete(true);
+                try
+                {
+                    DirectoryInfo dir = new DirectoryInfo(@"modules\" + Program.p.currentModule._filename + @"\" + Program.p.currentTask._name);
+                    dir.Delete(true);
+                }
+                catch (NullReferenceException)
+                {
+                    DirectoryInfo dir = new DirectoryInfo(@"modules\" + Program.p.currentModuleFilename + @"\" + Program.p.currentTaskFilename);
+                    dir.Delete(true);
+                }
+                
                 Program.InitWindow(Forms.fEditTask);
                 Program.fEditTask.Show();
                 this.Hide();
@@ -280,8 +302,8 @@ namespace PRIZ
 
         private void btnBack_Click(object sender, EventArgs e)
         {
-            Program.InitWindow(Forms.fEditModuleEntity);
-            Program.fEditModuleEntity.Show();
+            Program.InitWindow(Forms.fEditModule);
+            Program.fEditModule.Show();
             this.Hide();
         }
         private void Form_SizeChanged(object sender, EventArgs e)

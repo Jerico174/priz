@@ -42,17 +42,16 @@
             this.btnAbout = new System.Windows.Forms.Button();
             this.btnModules = new System.Windows.Forms.Button();
             this.btnLogoCreativeThinker = new System.Windows.Forms.Button();
-            this.tbHypo = new System.Windows.Forms.RichTextBox();
             this.btnLogoEducationEra = new System.Windows.Forms.Button();
             this.showTaskCond = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.btnBack = new System.Windows.Forms.Button();
             this.pnlPhenomenas = new System.Windows.Forms.Panel();
-            this.pbHypo = new System.Windows.Forms.PictureBox();
             this.pnlForHypo = new System.Windows.Forms.Panel();
+            this.tbHypo = new System.Windows.Forms.RichTextBox();
+            this.panel3 = new System.Windows.Forms.Panel();
             this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbHypo)).BeginInit();
-            this.pnlForHypo.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -273,19 +272,6 @@
             this.btnLogoCreativeThinker.UseVisualStyleBackColor = false;
             this.btnLogoCreativeThinker.Click += new System.EventHandler(this.btnLogoCreativeThinker_Click_1);
             // 
-            // tbHypo
-            // 
-            this.tbHypo.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.tbHypo.BackColor = System.Drawing.Color.White;
-            this.tbHypo.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.tbHypo.Location = new System.Drawing.Point(0, 149);
-            this.tbHypo.Name = "tbHypo";
-            this.tbHypo.ReadOnly = true;
-            this.tbHypo.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical;
-            this.tbHypo.Size = new System.Drawing.Size(606, 175);
-            this.tbHypo.TabIndex = 0;
-            this.tbHypo.Text = "";
-            // 
             // btnLogoEducationEra
             // 
             this.btnLogoEducationEra.Anchor = System.Windows.Forms.AnchorStyles.Top;
@@ -360,24 +346,35 @@
             this.pnlPhenomenas.Size = new System.Drawing.Size(182, 327);
             this.pnlPhenomenas.TabIndex = 32;
             // 
-            // pbHypo
-            // 
-            this.pbHypo.Location = new System.Drawing.Point(0, 0);
-            this.pbHypo.Name = "pbHypo";
-            this.pbHypo.Size = new System.Drawing.Size(606, 146);
-            this.pbHypo.TabIndex = 33;
-            this.pbHypo.TabStop = false;
-            this.pbHypo.LoadCompleted += new System.ComponentModel.AsyncCompletedEventHandler(this.pbHypo_LoadCompleted);
-            // 
             // pnlForHypo
             // 
-            this.pnlForHypo.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.pnlForHypo.Controls.Add(this.pbHypo);
-            this.pnlForHypo.Controls.Add(this.tbHypo);
-            this.pnlForHypo.Location = new System.Drawing.Point(342, 155);
+            this.pnlForHypo.AutoScroll = true;
+            this.pnlForHypo.BackColor = System.Drawing.Color.White;
+            this.pnlForHypo.Location = new System.Drawing.Point(0, 0);
             this.pnlForHypo.Name = "pnlForHypo";
-            this.pnlForHypo.Size = new System.Drawing.Size(606, 327);
+            this.pnlForHypo.Size = new System.Drawing.Size(167, 327);
             this.pnlForHypo.TabIndex = 34;
+            // 
+            // tbHypo
+            // 
+            this.tbHypo.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tbHypo.Location = new System.Drawing.Point(173, 0);
+            this.tbHypo.Name = "tbHypo";
+            this.tbHypo.ReadOnly = true;
+            this.tbHypo.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
+            this.tbHypo.Size = new System.Drawing.Size(429, 327);
+            this.tbHypo.TabIndex = 0;
+            this.tbHypo.Text = "";
+            // 
+            // panel3
+            // 
+            this.panel3.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.panel3.Controls.Add(this.tbHypo);
+            this.panel3.Controls.Add(this.pnlForHypo);
+            this.panel3.Location = new System.Drawing.Point(342, 155);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(602, 327);
+            this.panel3.TabIndex = 35;
             // 
             // FormPhenomenas
             // 
@@ -398,7 +395,7 @@
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.pnlForHypo);
+            this.Controls.Add(this.panel3);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(1024, 726);
             this.Name = "FormPhenomenas";
@@ -412,8 +409,7 @@
             this.Leave += new System.EventHandler(this.LabelLostFokus);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbHypo)).EndInit();
-            this.pnlForHypo.ResumeLayout(false);
+            this.panel3.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -432,7 +428,6 @@
         private System.Windows.Forms.Button btnModules;
         private System.Windows.Forms.Button btnLogoCreativeThinker;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.RichTextBox tbHypo;
         private System.Windows.Forms.Button btnPlusIdea;
         private System.Windows.Forms.Button btnLogoEducationEra;
         private System.Windows.Forms.Label showTaskCond;
@@ -440,7 +435,8 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnBack;
         private System.Windows.Forms.Panel pnlPhenomenas;
-        private System.Windows.Forms.PictureBox pbHypo;
         private System.Windows.Forms.Panel pnlForHypo;
+        private System.Windows.Forms.RichTextBox tbHypo;
+        private System.Windows.Forms.Panel panel3;
     }
 }

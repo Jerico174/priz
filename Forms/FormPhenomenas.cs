@@ -15,19 +15,26 @@ namespace PRIZ
     public partial class FormPhenomenas : Form
     {
         Answer answer = Program.p.answer;
+        PictureBox tempPB;
         List<Label> phenomenaLabels;
+        private Trestan.TRichTextBox richTextBox1;
         public FormPhenomenas()
         {
             InitializeComponent();
+            if (Program.p.AdminMode)
+            {
+                lbUserName.Visible = false;
+                label3.Visible = false;
+            }
             this.FormClosing += Program.ApplicationQuit;
             this.Size = Program.currentSize;
+            this.richTextBox1 = new Trestan.TRichTextBox();
             this.Location = Program.currentLocation;
             lbUserName.Text = Program.p.CurrentFullName;
             btnLogoCreativeThinker.MouseEnter += Program.LogoMouseEnter;
             btnLogoCreativeThinker.MouseLeave += Program.LogoMouseLeave;
             btnLogoEducationEra.MouseEnter += Program.LogoMouseEnter;
             btnLogoEducationEra.MouseLeave += Program.LogoMouseLeave;
-            this.FormClosing += Program.ApplicationQuit;
             this.MouseWheel += new MouseEventHandler(tb_MouseWheel);
 
             DirectoryInfo dir = new DirectoryInfo(@"content\phenomenas");
@@ -43,22 +50,41 @@ namespace PRIZ
                 phitem.Text = tempName.Remove(tempName.LastIndexOf(@"."));
                 phitem.Size = new Size(100, 20);
                 phitem.Click += phitem_Click;
-                if (Program.p.currentTask._phenomenas.IndexOf(phitem.Text)>0 && tempName.IndexOf(@".rtf")>0)
+                if (Program.p.currentTask._phenomenas.IndexOf(phitem.Text)>-1 && tempName.IndexOf(@".rtf")>-1)
                 {
                     pnlPhenomenas.Controls.Add(phitem);
                     if (counter == 5)
                     {
                         phitem.Font = new Font("Segoue UI", 11F, FontStyle.Bold);
                         phitem.ForeColor = Color.FromArgb(255, 40, 179, 151);
+                        tbHypo.LoadFile(@"content/phenomenas/" + phitem.Text + ".rtf", RichTextBoxStreamType.RichText);
                         try
                         {
-                            pbHypo.ImageLocation = @"content/phenomenas/" + phitem.Text + ".gif";
+                            for (int i = 1; i < 11; i++)
+                            {
+                                tbHypo.Location = new Point(515, 155);
+                                tbHypo.Size = new Size(429, 327);
+                                PhenomenaImage pimg = new PhenomenaImage();
+                                pimg.Location = new Point(0, 0);
+                                pimg.btnDelete.Visible = false;
+                                pimg.btnEdit.Visible = false;
+                                pimg.Cursor = Cursors.Hand;
+                                //counter += 155;
+                                string path = "content\\phenomenas\\" + phitem.Text + "-" + i + ".gif";
+                                if (System.IO.File.Exists(path))
+                                {
+                                    pimg.pbImage.ImageLocation = path;
+                                    pnlForHypo.Controls.Add(pimg);
+                                    pimg.pbImage.Paint += pbImage_Paint;
+                                    pimg.pbImage.Visible = true;
+                                    pimg.pbImage.Click += pimg_Click;
+                                }
+                                RedrawImages();
+                            }
                         }
                         catch (System.IO.FileNotFoundException)
                         {
-                            pbHypo.Visible = false;
-                            tbHypo.Location = new Point(0, 149);
-                            tbHypo.Size = new Size(606, 327);
+
                         }
                     }
                     else
@@ -88,18 +114,34 @@ namespace PRIZ
 	        }
             (sender as Label).ForeColor = Color.FromArgb(255, 40, 179, 151);
             (sender as Label).Font = new Font("Segoue UI", 11F, FontStyle.Bold);
+            pnlForHypo.Controls.Clear();
             try
             {
-                pbHypo.ImageLocation = @"content/phenomenas/" + (sender as Label).Text + ".gif";
-                pbHypo.Visible = true;
-                tbHypo.Location = new Point(0, 149);
-                tbHypo.Size = new Size(606, 175);
+                for (int i = 1; i < 11; i++)
+                {
+                    tbHypo.Location = new Point(515, 155);
+                    tbHypo.Size = new Size(429, 327);
+                    PhenomenaImage pimg = new PhenomenaImage();
+                    pimg.Location = new Point(0, 0);
+                    pimg.btnDelete.Visible = false;
+                    pimg.btnEdit.Visible = false;
+                    pimg.Cursor = Cursors.Hand;
+                    //counter += 155;
+                    string path = "content\\phenomenas\\" + (sender as Label).Text + "-" + i + ".gif";
+                    if (System.IO.File.Exists(path))
+                    {
+                        pimg.pbImage.ImageLocation = path;
+                        pnlForHypo.Controls.Add(pimg);
+                        pimg.pbImage.Paint += pbImage_Paint;
+                        pimg.pbImage.Visible = true;
+                        pimg.pbImage.Click += pimg_Click;
+                    }
+                    RedrawImages();
+                }
             }
             catch (System.IO.FileNotFoundException)
             {
-                pbHypo.Visible = false;
-                tbHypo.Location = new Point(342, 155);
-                tbHypo.Size = new Size(606, 327);
+                
             }
             try
             {
@@ -109,6 +151,43 @@ namespace PRIZ
             {
                 tbHypo.Text = "Справочный файл удален или поврежден";
             }
+            
+        }
+
+        void pimg_Click(object sender, EventArgs e)
+        {
+            Program.InitWindow(Forms.fFullImage);
+            (sender as PictureBox).Visible = false;
+            Program.fFullImage.pictureBox1.Image = (sender as PictureBox).Image;
+            tempPB = (sender as PictureBox);
+            Program.fFullImage.Show();
+            Program.fFullImage.FormClosed += fFullImage_FormClosed;
+        }
+        void RedrawImages()
+        {
+            int counter=0;
+            foreach (PhenomenaImage pimg in pnlForHypo.Controls)
+            {
+                pimg.Location = new Point(0, counter);
+                counter += 155;
+            }
+            if (pnlForHypo.Controls.Count==0)
+            {
+                tbHypo.Location = new Point(0, 0);
+                tbHypo.Size = new Size(602, 327);
+            }
+            else
+            {
+                tbHypo.Location = new Point(173, 0);
+                tbHypo.Size = new Size(429, 327);
+            }
+        }
+        void pbImage_Paint(object sender, PaintEventArgs e)
+        {
+            if ((sender as PictureBox).Image == (sender as PictureBox).ErrorImage)
+            {
+                pnlForHypo.Controls.Remove((sender as PictureBox).Parent);
+            }
         }
 
         string CleanFromSpaces(string t)
@@ -116,11 +195,6 @@ namespace PRIZ
             t = Regex.Replace(t, "[ \t]{2,}", " ");
             t = Regex.Replace(t, "[\\s]{2,}", Environment.NewLine);
             return t;
-        }
-
-        private void tb_MouseWheel(object sender, EventArgs e)
-        {
-            tbHypo.Focus();
         }
 
         private void btnPlusIdea_Click(object sender, EventArgs e)
@@ -135,7 +209,10 @@ namespace PRIZ
                 lIdeas.Font = new Font("Segoue UI", 11F, FontStyle.Underline);
             }
         }
-
+        private void tb_MouseWheel(object sender, EventArgs e)
+        {
+            pnlForHypo.Focus();
+        }
         private void btnSendToTheNextForm_Click(object sender, EventArgs e)
         {
             if (tbIdea.Text != "" || answer._hypothesises.Count > 0)
@@ -171,8 +248,8 @@ namespace PRIZ
                 Program.InitWindow(Forms.fModules);
                 Program.fModules.Show();
                 this.Hide();
+                answer._hypothesises.Clear();
             }
-            
         }
 
         private void btnAbout_Click(object sender, EventArgs e)
@@ -389,8 +466,8 @@ namespace PRIZ
             Program.fTask.WindowState = Program.fPhenomenas.WindowState;
             Program.fTask.Size = Program.fPhenomenas.Size;
             Program.fTask.Location = Program.fPhenomenas.Location;
-            this.Hide();
             Program.fTask.Show();
+            this.Hide();
             answer._hypothesises.Clear();
         }
 
@@ -460,10 +537,24 @@ namespace PRIZ
         {
             if (e.Error != null)
             {
-                tbHypo.Location = new Point(0, 0);
-                tbHypo.Size = new Size(606, 327);
-                pbHypo.Visible = false;
+                tbHypo.Location = new Point(3, 3);
+                tbHypo.Size = new Size(599, 321);
             }
+        }
+
+        private void pbHypo_Click(object sender, EventArgs e)
+        {
+            Program.InitWindow(Forms.fFullImage);
+            (sender as PictureBox).Visible = false;
+            Program.fFullImage.pictureBox1.Image = (sender as PictureBox).Image;
+            tempPB = (sender as PictureBox);
+            Program.fFullImage.Show();
+            Program.fFullImage.FormClosed += fFullImage_FormClosed;
+        }
+
+        void fFullImage_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            tempPB.Visible = true;
         }
     }
 }

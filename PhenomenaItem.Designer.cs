@@ -32,6 +32,7 @@
             this.lPhenomena = new System.Windows.Forms.CheckBox();
             this.btnEdit = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
+            this.lblPhenomena = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lPhenomena
@@ -56,7 +57,7 @@
             this.btnEdit.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnEdit.FlatAppearance.BorderSize = 0;
             this.btnEdit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnEdit.Location = new System.Drawing.Point(352, 10);
+            this.btnEdit.Location = new System.Drawing.Point(352, 8);
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(19, 19);
             this.btnEdit.TabIndex = 2;
@@ -71,11 +72,22 @@
             this.btnDelete.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnDelete.FlatAppearance.BorderSize = 0;
             this.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDelete.Location = new System.Drawing.Point(377, 10);
+            this.btnDelete.Location = new System.Drawing.Point(377, 9);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(19, 19);
             this.btnDelete.TabIndex = 1;
             this.btnDelete.UseVisualStyleBackColor = true;
+            // 
+            // lblPhenomena
+            // 
+            this.lblPhenomena.AutoSize = true;
+            this.lblPhenomena.Font = new System.Drawing.Font("Segoe UI Light", 12.75F);
+            this.lblPhenomena.Location = new System.Drawing.Point(7, 6);
+            this.lblPhenomena.Name = "lblPhenomena";
+            this.lblPhenomena.Size = new System.Drawing.Size(52, 23);
+            this.lblPhenomena.TabIndex = 3;
+            this.lblPhenomena.Text = "label1";
+            this.lblPhenomena.Visible = false;
             // 
             // PhenomenaItem
             // 
@@ -83,6 +95,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Controls.Add(this.lblPhenomena);
             this.Controls.Add(this.btnEdit);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.lPhenomena);
@@ -98,6 +111,7 @@
         public System.Windows.Forms.CheckBox lPhenomena;
         public System.Windows.Forms.Button btnDelete;
         public System.Windows.Forms.Button btnEdit;
+        public System.Windows.Forms.Label lblPhenomena;
 
     }
 }

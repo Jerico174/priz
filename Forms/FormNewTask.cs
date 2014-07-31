@@ -13,6 +13,8 @@ namespace PRIZ
 {
     public partial class FormNewTask : Form
     {
+        bool changed = false;
+        bool anyUnchecked = false;
         int counter = 5;
         bool error = false;
         bool def= true;
@@ -20,15 +22,16 @@ namespace PRIZ
 
         public void GetPlace(bool taskList)
         {
-            if (taskList)
-            {
-                btnBackToTasks.Visible = true;
-            }
         }
 
         public FormNewTask()
         {
             InitializeComponent();
+            if (Program.p.AdminMode)
+            {
+                label2.Visible = false;
+                label3.Visible = false;
+            }
             this.FormClosing += Program.ApplicationQuit;
             //pnlWhite.Visible = false;
             label2.Text = Program.p.CurrentFullName;
@@ -37,17 +40,46 @@ namespace PRIZ
             this.Size = Program.currentSize;
             this.Location = Program.currentLocation;
             DirectoryInfo dir = new DirectoryInfo(@"content\phenomenas");
-            foreach (var item in dir.GetFiles())
+            try
             {
-                string tempName = item.Name;
-                PhenomenaItem phitem = new PhenomenaItem();
-                phitem.Location = new Point(0,counter);
-                counter += 40;
-                phitem.btnDelete.Visible = false;
-                phitem.btnEdit.Visible = false;
-                phitem.lPhenomena.Text = tempName.Remove(tempName.LastIndexOf(@"."));
-                pnlPhenomenas.Controls.Add(phitem);
+                foreach (var item in dir.GetFiles())
+                {
+                    string tempName = item.Name;
+                    PhenomenaItem phitem = new PhenomenaItem();
+                    phitem.Location = new Point(0, counter);
+                    phitem.btnDelete.Visible = false;
+                    phitem.btnEdit.Visible = false;
+                    phitem.lPhenomena.Text = tempName.Remove(tempName.LastIndexOf(@"."));
+                    phitem.lPhenomena.CheckedChanged += lPhenomena_CheckedChanged;
+                    if (tempName.IndexOf(@".rtf") > -1)
+                    {
+                        counter += 40;
+                        pnlPhenomenas.Controls.Add(phitem);
+                    }
+                }
+                if (pnlPhenomenas.Controls.Count == 0)
+                {
+                    pnlAddPhenomenas.Visible = true;
+                }
             }
+            catch (DirectoryNotFoundException)
+            {
+                Directory.CreateDirectory(@"content\phenomenas");
+            }
+        }
+
+        void lPhenomena_CheckedChanged(object sender, EventArgs e)
+        {
+            anyUnchecked = false;
+            foreach (PhenomenaItem pitem in pnlPhenomenas.Controls)
+            {
+                if (pitem.lPhenomena.Checked==false)
+                {
+                    anyUnchecked = true;
+                }
+            }
+            if (anyUnchecked)bntCheckAll.BackColor = Color.WhiteSmoke;
+            else bntCheckAll.BackColor = Color.FromArgb(255, 214, 231, 188);
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
@@ -135,7 +167,10 @@ namespace PRIZ
 
         private void btnAddTask_Click(object sender, EventArgs e)
         {
-            if (tbGiven.Text == "" || tbTaskName.Text == "")
+            changed = false;
+            tbTaskName.Text.Trim();
+            tbTaskName.Text = Program.p.ReplaceMultispaces(tbTaskName.Text);
+            if (tbGiven.Text == "" || tbTaskName.Text == "" || tbTaskName.Text == " " || tbTaskName.Text == "Название задания" || tbGiven.Text == "Описание задания")
             {
                 MessageBox.Show("Заполнены не все поля");
             }
@@ -147,8 +182,15 @@ namespace PRIZ
                     foreach (var phenomena in pnlPhenomenas.Controls)
                     {
                         var p = (phenomena as PhenomenaItem).lPhenomena;
-                        if (p.Checked)
-                            phenomenas+=p.Text + " - ";
+                        if (p.Checked) {
+                            phenomenas += p.Text + " - ";
+                            p.Checked = false;
+                        }
+                        
+                    }
+                    if (phenomenas==null)
+                    {
+                        phenomenas = "No Phenomenas";
                     }
                     NewTask newTask = new NewTask(tbTaskName.Text, tbGiven.Text, pbImage.RectangleToScreen(pbImage.ClientRectangle),phenomenas);
                     pnlAdded.Visible = true;
@@ -157,6 +199,7 @@ namespace PRIZ
                     tbTaskName.Clear();
                     pbImage.Image = Properties.Resources.iconimage;
                     pbImage.SizeMode = PictureBoxSizeMode.CenterImage;
+                    Program.p.currentTaskFilename = tbTaskName.Text;
                 }
             }
         }
@@ -202,13 +245,6 @@ namespace PRIZ
             }
         }
         
-        private void btnBackToTasks_Click(object sender, EventArgs e)
-        {
-            btnBackToTasks.Visible = false;
-            Program.InitWindow(Forms.fEditTask);
-            Program.fEditTask.Show();
-            this.Hide();
-        }
 
         private void tb_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -234,9 +270,21 @@ namespace PRIZ
 
         private void btnBack_Click(object sender, EventArgs e)
         {
-            Program.InitWindow(Forms.fEditTask);
-            Program.fEditTask.Show();
-            this.Hide();
+            if (changed)
+            {
+                if (MessageBox.Show("Вы уверены, что хотите перейти в модули? Данные не будут сохранены." + Environment.NewLine + " Продолжить?", "Подтверждение", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                {
+                    Program.InitWindow(Forms.fEditTask);
+                    Program.fEditTask.Show();
+                    this.Hide();
+                }
+            }
+            else
+            {
+                Program.InitWindow(Forms.fEditTask);
+                Program.fEditTask.Show();
+                this.Hide();
+            }
         }
         private void Form_SizeChanged(object sender, EventArgs e)
         {
@@ -259,7 +307,16 @@ namespace PRIZ
 
         private void btnModules_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Вы уверены, что хотите перейти в модули? Данные не будут сохранены." + Environment.NewLine + " Продолжить?", "Подтверждение", MessageBoxButtons.OKCancel) == DialogResult.OK)
+            if (changed)
+            {
+                if (MessageBox.Show("Вы уверены, что хотите перейти в модули? Данные не будут сохранены." + Environment.NewLine + " Продолжить?", "Подтверждение", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                {
+                    Program.InitWindow(Forms.fModules);
+                    Program.fModules.Show();
+                    this.Hide();
+                }
+            }
+            else
             {
                 Program.InitWindow(Forms.fModules);
                 Program.fModules.Show();
@@ -279,6 +336,29 @@ namespace PRIZ
             Program.InitWindow(Forms.fMailSender);
             //this.Hide();
             Program.fMailSender.ShowDialog();
+        }
+
+        private void btnPhenomenaEditor_Click(object sender, EventArgs e)
+        {
+            Program.InitWindow(Forms.fPhenomenasEditor);
+            Program.fPhenomenasEditor.LastWindow = "NewTask";
+            Program.fPhenomenasEditor.Show();
+            this.Hide();
+        }
+
+        private void bntCheckAll_Click(object sender, EventArgs e)
+        {
+            foreach (PhenomenaItem pitem in pnlPhenomenas.Controls)
+            {
+                pitem.lPhenomena.Checked = true;
+                pitem.BackColor = Color.FromArgb(255, 214, 231, 188);
+            }
+            (sender as Button).BackColor = Color.FromArgb(255, 214, 231, 188);
+        }
+
+        private void tbTaskName_TextChanged(object sender, EventArgs e)
+        {
+            changed = true;
         }
     }
 }

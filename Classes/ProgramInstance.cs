@@ -2,19 +2,27 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 
 namespace PRIZ
 {
     public class ProgramInstance
     {
+        public bool AdminMode = true;
         public List<User> _users;
         public List<Task> _tasks;
         public Answer answer;
         public Module currentModule;
+        public string currentModuleFilename;
+        public string currentTaskFilename;
         public Task currentTask;
         public int _currentUser = 0;
         public int _currentProblem = 0;
 
+        public Form LastClosedForm
+        {
+            set { }
+        }
         public User CurrentUser
         {
             get { return _users[_currentUser]; }
@@ -31,6 +39,12 @@ namespace PRIZ
             {
                 return _users[_currentUser]._name + " " + _users[_currentUser]._surname;
             }
+        }
+
+        public string ReplaceMultispaces(string s)
+        {   
+            s = Regex.Replace(s, @"\s+", " ");
+            return s;
         }
 
         public ProgramInstance()
@@ -68,10 +82,16 @@ namespace PRIZ
             string report;
             report = Program.p.currentTask._name.ToUpper() + "\r\n";
             report += "\r\n";
-            report += "Решал(а): " + Program.p.CurrentFullName + "\r\n";
-            report += "Страна: " + u._country + "\r\n";
-            report += "Статус: " + u._status + "\r\n";
-            report += "О себе: " + u._about + "\r\n";
+            if (Program.p.AdminMode)
+            {
+                report += "Решал: Администратор\r\n";
+            }
+            else { 
+                report += "Решал(а): " + Program.p.CurrentFullName + "\r\n";
+                report += "Страна: " + u._country + "\r\n";
+                report += "Статус: " + u._status + "\r\n";
+                report += "О себе: " + u._about + "\r\n";
+            }
             report += "\r\n\r\n";
             report += "Дано:\r\n";
             report += a._givenByUser + "\r\n\r\n";
@@ -90,10 +110,21 @@ namespace PRIZ
                 report += "\r\nКомментарий: \r\n";
                 report += answer._comment;
             }
-            string filename = CurrentFullName.ToLower() + "_" + 
-                Program.p.currentTask._name.ToLower() + "_" +
-                (System.DateTime.Now.ToShortDateString() +"_" + System.DateTime.Now.ToShortTimeString()).Replace(".", "_").Replace(":", "-") + "_" +
-                "_отчет.txt";
+            string filename="";
+            if (Program.p.AdminMode)
+            {
+                filename = "Администратор_" +
+                    Program.p.currentTask._name.ToLower() + "_" +
+                    (System.DateTime.Now.ToShortDateString() + "_" + System.DateTime.Now.ToShortTimeString()).Replace(".", "_").Replace(":", "-") + "_" +
+                    "_отчет.txt";
+            }
+            else
+            {
+                filename = CurrentFullName.ToLower() + "_" +
+                    Program.p.currentTask._name.ToLower() + "_" +
+                    (System.DateTime.Now.ToShortDateString() + "_" + System.DateTime.Now.ToShortTimeString()).Replace(".", "_").Replace(":", "-") + "_" +
+                    "_отчет.txt";
+            }
             filename.Replace(' ','_');
             System.IO.File.WriteAllText(filename, report);
             System.Diagnostics.Process.Start(filename);

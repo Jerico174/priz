@@ -20,7 +20,7 @@ namespace PRIZ
 
         public void SaveToFile(string name)
         {
-            string path = @"modules\" + name + @"\main.xml";
+            string path = @"modules\" + name.Trim() + @"\main.xml";
             FileStream fs = new FileStream(path, FileMode.Create);
             XmlSerializer xs = new XmlSerializer(typeof(Module));
             xs.Serialize(fs, this);
@@ -34,7 +34,7 @@ namespace PRIZ
         /// <param name="r">'Название файла'.RectangleToScreen(pbImage.ClientRectangle) - изображение</param>
         public NewModule(string name, string annotation, Rectangle r)
         {
-            this._name = name;
+            this._name = name.Trim();
             this._annotation = annotation;
             this._pic = "mainpic.png";
             this._filename = name;

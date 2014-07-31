@@ -40,6 +40,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.btnBack = new System.Windows.Forms.Button();
             this.btnAddTask = new System.Windows.Forms.Button();
+            this.btnAddPhenomenas = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnWriteToUs
@@ -233,6 +234,24 @@
             this.btnAddTask.Visible = false;
             this.btnAddTask.Click += new System.EventHandler(this.btnAddTask_Click);
             // 
+            // btnAddPhenomenas
+            // 
+            this.btnAddPhenomenas.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btnAddPhenomenas.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(103)))), ((int)(((byte)(103)))), ((int)(((byte)(103)))));
+            this.btnAddPhenomenas.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnAddPhenomenas.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(103)))), ((int)(((byte)(103)))), ((int)(((byte)(103)))));
+            this.btnAddPhenomenas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAddPhenomenas.Font = new System.Drawing.Font("Segoe UI Light", 10F);
+            this.btnAddPhenomenas.ForeColor = System.Drawing.Color.White;
+            this.btnAddPhenomenas.Location = new System.Drawing.Point(29, 492);
+            this.btnAddPhenomenas.Name = "btnAddPhenomenas";
+            this.btnAddPhenomenas.Size = new System.Drawing.Size(75, 50);
+            this.btnAddPhenomenas.TabIndex = 44;
+            this.btnAddPhenomenas.Text = "Редактор явлений";
+            this.btnAddPhenomenas.UseVisualStyleBackColor = false;
+            this.btnAddPhenomenas.Visible = false;
+            this.btnAddPhenomenas.Click += new System.EventHandler(this.btnAddPhenomenas_Click);
+            // 
             // FormModule
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -240,6 +259,7 @@
             this.BackColor = System.Drawing.Color.White;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(1008, 727);
+            this.Controls.Add(this.btnAddPhenomenas);
             this.Controls.Add(this.btnAddTask);
             this.Controls.Add(this.btnBack);
             this.Controls.Add(this.label3);
@@ -279,6 +299,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnBack;
         private System.Windows.Forms.Button btnAddTask;
+        private System.Windows.Forms.Button btnAddPhenomenas;
 
 
     }

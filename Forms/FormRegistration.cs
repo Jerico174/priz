@@ -10,6 +10,13 @@ namespace PRIZ
 {
     public partial class FormRegistration : Form
     {
+        string[] placeholders =
+        {
+            "Фамилия *",
+            "Имя *",
+            "Страна",
+            "О себе"
+        };
         public FormRegistration()
         {
             InitializeComponent();
@@ -28,8 +35,11 @@ namespace PRIZ
         {
             if ((sender as TextBox).Text == "")
             {
-                (sender as TextBox).ForeColor = Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(126)))), ((int)(((byte)(126)))));
-                (sender as TextBox).Text = _earlierText;
+                for (int i = 0; i < placeholders.Length; i++)
+                {
+                    (sender as TextBox).ForeColor = Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(126)))), ((int)(((byte)(126)))));
+                    (sender as TextBox).Text = placeholders[Convert.ToInt32((sender as TextBox).Tag)];
+                }
             }
 
         }
@@ -44,8 +54,11 @@ namespace PRIZ
         private void TextBox_GotFocus(object sender, EventArgs e)
         {
             _earlierText = (sender as TextBox).Text;
-            (sender as TextBox).Text = "";
-            (sender as TextBox).ForeColor = Color.Black;
+            if (_earlierText == "Фамилия *" || _earlierText == "Имя *" || _earlierText == "Страна" || _earlierText == "О себе")
+                {
+                (sender as TextBox).Text = "";
+                (sender as TextBox).ForeColor = Color.Black;
+            }
         }
         private void tbStatus_Enter(object sender, EventArgs e)
         {

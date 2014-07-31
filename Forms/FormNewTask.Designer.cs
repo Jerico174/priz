@@ -37,7 +37,6 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.pnlAdded = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
-            this.btnBackToTasks = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.btnAbout = new System.Windows.Forms.Button();
             this.btnWriteToUs = new System.Windows.Forms.Button();
@@ -47,8 +46,13 @@
             this.label4 = new System.Windows.Forms.Label();
             this.pnlPhenomenas = new System.Windows.Forms.Panel();
             this.label5 = new System.Windows.Forms.Label();
+            this.btnPhenomenaEditor = new System.Windows.Forms.Button();
+            this.pnlAddPhenomenas = new System.Windows.Forms.Panel();
+            this.label6 = new System.Windows.Forms.Label();
+            this.bntCheckAll = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pbImage)).BeginInit();
             this.pnlAdded.SuspendLayout();
+            this.pnlAddPhenomenas.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnAddTask
@@ -77,8 +81,9 @@
             this.tbGiven.Multiline = true;
             this.tbGiven.Name = "tbGiven";
             this.tbGiven.Size = new System.Drawing.Size(363, 206);
-            this.tbGiven.TabIndex = 39;
+            this.tbGiven.TabIndex = 3;
             this.tbGiven.Text = "Описание задания";
+            this.tbGiven.TextChanged += new System.EventHandler(this.tbTaskName_TextChanged);
             this.tbGiven.Enter += new System.EventHandler(this.descFrom_Enter);
             this.tbGiven.Leave += new System.EventHandler(this.descFrom_Leave);
             // 
@@ -90,8 +95,9 @@
             this.tbTaskName.Location = new System.Drawing.Point(610, 117);
             this.tbTaskName.Name = "tbTaskName";
             this.tbTaskName.Size = new System.Drawing.Size(363, 46);
-            this.tbTaskName.TabIndex = 40;
+            this.tbTaskName.TabIndex = 2;
             this.tbTaskName.Text = "Название задания";
+            this.tbTaskName.TextChanged += new System.EventHandler(this.tbTaskName_TextChanged);
             this.tbTaskName.Enter += new System.EventHandler(this.txtFrom_Enter);
             this.tbTaskName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tb_KeyPress);
             this.tbTaskName.Leave += new System.EventHandler(this.txtFrom_Leave);
@@ -143,24 +149,6 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Задание добавлено";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // btnBackToTasks
-            // 
-            this.btnBackToTasks.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.btnBackToTasks.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(103)))), ((int)(((byte)(103)))), ((int)(((byte)(103)))));
-            this.btnBackToTasks.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnBackToTasks.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(103)))), ((int)(((byte)(103)))), ((int)(((byte)(103)))));
-            this.btnBackToTasks.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnBackToTasks.Font = new System.Drawing.Font("Segoe UI Light", 10F);
-            this.btnBackToTasks.ForeColor = System.Drawing.Color.White;
-            this.btnBackToTasks.Location = new System.Drawing.Point(154, 633);
-            this.btnBackToTasks.Name = "btnBackToTasks";
-            this.btnBackToTasks.Size = new System.Drawing.Size(162, 31);
-            this.btnBackToTasks.TabIndex = 43;
-            this.btnBackToTasks.Text = "Вернуться к заданиям";
-            this.btnBackToTasks.UseVisualStyleBackColor = false;
-            this.btnBackToTasks.Visible = false;
-            this.btnBackToTasks.Click += new System.EventHandler(this.btnBackToTasks_Click);
             // 
             // label2
             // 
@@ -291,15 +279,15 @@
             this.label4.Location = new System.Drawing.Point(147, 71);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(203, 38);
-            this.label4.TabIndex = 76;
+            this.label4.TabIndex = 1;
             this.label4.Text = "Новое задание";
             // 
             // pnlPhenomenas
             // 
             this.pnlPhenomenas.AutoScroll = true;
-            this.pnlPhenomenas.Location = new System.Drawing.Point(155, 437);
+            this.pnlPhenomenas.Location = new System.Drawing.Point(155, 469);
             this.pnlPhenomenas.Name = "pnlPhenomenas";
-            this.pnlPhenomenas.Size = new System.Drawing.Size(430, 175);
+            this.pnlPhenomenas.Size = new System.Drawing.Size(430, 143);
             this.pnlPhenomenas.TabIndex = 77;
             // 
             // label5
@@ -315,12 +303,74 @@
             this.label5.TabIndex = 78;
             this.label5.Text = "Выберите нужные явления";
             // 
+            // btnPhenomenaEditor
+            // 
+            this.btnPhenomenaEditor.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btnPhenomenaEditor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(103)))), ((int)(((byte)(103)))), ((int)(((byte)(103)))));
+            this.btnPhenomenaEditor.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnPhenomenaEditor.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(103)))), ((int)(((byte)(103)))), ((int)(((byte)(103)))));
+            this.btnPhenomenaEditor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPhenomenaEditor.Font = new System.Drawing.Font("Segoe UI Light", 10F);
+            this.btnPhenomenaEditor.ForeColor = System.Drawing.Color.White;
+            this.btnPhenomenaEditor.Location = new System.Drawing.Point(423, 633);
+            this.btnPhenomenaEditor.Name = "btnPhenomenaEditor";
+            this.btnPhenomenaEditor.Size = new System.Drawing.Size(162, 31);
+            this.btnPhenomenaEditor.TabIndex = 79;
+            this.btnPhenomenaEditor.Text = "Редактор явлений";
+            this.btnPhenomenaEditor.UseVisualStyleBackColor = false;
+            this.btnPhenomenaEditor.Click += new System.EventHandler(this.btnPhenomenaEditor_Click);
+            // 
+            // pnlAddPhenomenas
+            // 
+            this.pnlAddPhenomenas.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnlAddPhenomenas.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.pnlAddPhenomenas.Controls.Add(this.label6);
+            this.pnlAddPhenomenas.Location = new System.Drawing.Point(155, 438);
+            this.pnlAddPhenomenas.Name = "pnlAddPhenomenas";
+            this.pnlAddPhenomenas.Size = new System.Drawing.Size(430, 175);
+            this.pnlAddPhenomenas.TabIndex = 80;
+            this.pnlAddPhenomenas.Visible = false;
+            // 
+            // label6
+            // 
+            this.label6.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Segoe UI Light", 21.75F);
+            this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(113)))), ((int)(((byte)(113)))), ((int)(((byte)(113)))));
+            this.label6.Location = new System.Drawing.Point(73, 67);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(280, 40);
+            this.label6.TabIndex = 0;
+            this.label6.Text = "Явлений не найдено";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // bntCheckAll
+            // 
+            this.bntCheckAll.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.bntCheckAll.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.bntCheckAll.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.bntCheckAll.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(103)))), ((int)(((byte)(103)))), ((int)(((byte)(103)))));
+            this.bntCheckAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.bntCheckAll.Font = new System.Drawing.Font("Segoe UI Light", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.bntCheckAll.ForeColor = System.Drawing.Color.Black;
+            this.bntCheckAll.Location = new System.Drawing.Point(155, 438);
+            this.bntCheckAll.Name = "bntCheckAll";
+            this.bntCheckAll.Size = new System.Drawing.Size(430, 31);
+            this.bntCheckAll.TabIndex = 81;
+            this.bntCheckAll.Text = "Добавить всё";
+            this.bntCheckAll.UseVisualStyleBackColor = false;
+            this.bntCheckAll.Click += new System.EventHandler(this.bntCheckAll_Click);
+            // 
             // FormNewTask
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1008, 688);
+            this.Controls.Add(this.pnlAddPhenomenas);
+            this.Controls.Add(this.btnPhenomenaEditor);
+            this.Controls.Add(this.pnlAdded);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.pnlPhenomenas);
             this.Controls.Add(this.label4);
@@ -330,12 +380,11 @@
             this.Controls.Add(this.btnModules);
             this.Controls.Add(this.btnBack);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.btnBackToTasks);
             this.Controls.Add(this.btnAddTask);
             this.Controls.Add(this.tbGiven);
             this.Controls.Add(this.tbTaskName);
             this.Controls.Add(this.pbImage);
-            this.Controls.Add(this.pnlAdded);
+            this.Controls.Add(this.bntCheckAll);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(1024, 726);
             this.Name = "FormNewTask";
@@ -349,6 +398,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pbImage)).EndInit();
             this.pnlAdded.ResumeLayout(false);
             this.pnlAdded.PerformLayout();
+            this.pnlAddPhenomenas.ResumeLayout(false);
+            this.pnlAddPhenomenas.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -363,7 +414,6 @@
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Panel pnlAdded;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button btnBackToTasks;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnAbout;
         private System.Windows.Forms.Button btnWriteToUs;
@@ -373,5 +423,9 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Panel pnlPhenomenas;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button btnPhenomenaEditor;
+        private System.Windows.Forms.Panel pnlAddPhenomenas;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button bntCheckAll;
     }
 }

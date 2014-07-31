@@ -33,6 +33,8 @@
             this.btnAnotherModule = new System.Windows.Forms.Button();
             this.btnAddTasks = new System.Windows.Forms.Button();
             this.pnlWhite = new System.Windows.Forms.Panel();
+            this.pnlAdded = new System.Windows.Forms.Panel();
+            this.label4 = new System.Windows.Forms.Label();
             this.tbModuleName = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.pbImage = new System.Windows.Forms.PictureBox();
@@ -45,12 +47,10 @@
             this.label3 = new System.Windows.Forms.Label();
             this.btnBackToTasks = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.pnlAdded = new System.Windows.Forms.Panel();
-            this.label4 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.pnlWhite.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbImage)).BeginInit();
             this.pnlAdded.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbImage)).BeginInit();
             this.SuspendLayout();
             // 
             // btnAnotherModule
@@ -95,11 +95,36 @@
             this.pnlWhite.Controls.Add(this.pnlAdded);
             this.pnlWhite.Controls.Add(this.btnAddTasks);
             this.pnlWhite.Controls.Add(this.btnAnotherModule);
-            this.pnlWhite.Location = new System.Drawing.Point(-1, -2);
+            this.pnlWhite.Location = new System.Drawing.Point(9, 19);
             this.pnlWhite.Margin = new System.Windows.Forms.Padding(0);
             this.pnlWhite.Name = "pnlWhite";
             this.pnlWhite.Size = new System.Drawing.Size(1007, 688);
             this.pnlWhite.TabIndex = 38;
+            // 
+            // pnlAdded
+            // 
+            this.pnlAdded.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnlAdded.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.pnlAdded.Controls.Add(this.label4);
+            this.pnlAdded.Location = new System.Drawing.Point(-5, 236);
+            this.pnlAdded.Name = "pnlAdded";
+            this.pnlAdded.Size = new System.Drawing.Size(1016, 216);
+            this.pnlAdded.TabIndex = 40;
+            this.pnlAdded.Visible = false;
+            // 
+            // label4
+            // 
+            this.label4.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Segoe UI Light", 21.75F);
+            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(113)))), ((int)(((byte)(113)))), ((int)(((byte)(113)))));
+            this.label4.Location = new System.Drawing.Point(393, 90);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(242, 40);
+            this.label4.TabIndex = 0;
+            this.label4.Text = "Модуль добавлен";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // tbModuleName
             // 
@@ -111,6 +136,7 @@
             this.tbModuleName.Size = new System.Drawing.Size(363, 46);
             this.tbModuleName.TabIndex = 41;
             this.tbModuleName.Text = "Название модуля";
+            this.tbModuleName.TextChanged += new System.EventHandler(this.tbModuleName_TextChanged);
             this.tbModuleName.Enter += new System.EventHandler(this.txtFrom_Enter);
             this.tbModuleName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tb_KeyPress);
             this.tbModuleName.Leave += new System.EventHandler(this.txtFrom_Leave);
@@ -160,6 +186,7 @@
             this.tbDescription.Size = new System.Drawing.Size(363, 204);
             this.tbDescription.TabIndex = 42;
             this.tbDescription.Text = "Описание модуля";
+            this.tbDescription.TextChanged += new System.EventHandler(this.tbModuleName_TextChanged);
             this.tbDescription.Enter += new System.EventHandler(this.descFrom_Enter);
             this.tbDescription.Leave += new System.EventHandler(this.descFrom_Leave);
             // 
@@ -313,31 +340,6 @@
             this.label1.TabIndex = 75;
             this.label1.Text = "Новый модуль";
             // 
-            // pnlAdded
-            // 
-            this.pnlAdded.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pnlAdded.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.pnlAdded.Controls.Add(this.label4);
-            this.pnlAdded.Location = new System.Drawing.Point(-5, 236);
-            this.pnlAdded.Name = "pnlAdded";
-            this.pnlAdded.Size = new System.Drawing.Size(1016, 216);
-            this.pnlAdded.TabIndex = 40;
-            this.pnlAdded.Visible = false;
-            // 
-            // label4
-            // 
-            this.label4.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Segoe UI Light", 21.75F);
-            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(113)))), ((int)(((byte)(113)))), ((int)(((byte)(113)))));
-            this.label4.Location = new System.Drawing.Point(393, 90);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(242, 40);
-            this.label4.TabIndex = 0;
-            this.label4.Text = "Модуль добавлен";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // timer1
             // 
             this.timer1.Interval = 1500;
@@ -368,9 +370,9 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "ПРИЗ";
             this.pnlWhite.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pbImage)).EndInit();
             this.pnlAdded.ResumeLayout(false);
             this.pnlAdded.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbImage)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

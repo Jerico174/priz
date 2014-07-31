@@ -18,6 +18,11 @@ namespace PRIZ
         public FormTasks()
         {
             InitializeComponent();
+            if (Program.p.AdminMode)
+            {
+                lName.Visible = false;
+                label3.Visible = false;
+            }
             this.Size = Program.currentSize;
             this.Location = Program.currentLocation;
             this.FormClosing += Program.ApplicationQuit;
@@ -278,6 +283,7 @@ namespace PRIZ
         private void button1_Click(object sender, EventArgs e)
         {
             Program.InitWindow(Forms.fLogin);
+            Program.fLogin.StartPosition = FormStartPosition.Manual;
             Program.fLogin.tbLogin.Text = "Фамилия и имя";
             Program.fLogin.tbLogin.Font = new System.Drawing.Font("Segoe UI", 10.75F);
             Program.fLogin.tbLogin.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(126)))), ((int)(((byte)(126)))));

@@ -19,6 +19,11 @@ namespace PRIZ
         public FormEditModule()
         {
             InitializeComponent();
+            if (Program.p.AdminMode)
+            {
+                label2.Visible = false;
+                label3.Visible = false;
+            }
             this.Size = Program.currentSize;
             this.Location = Program.currentLocation;
             label2.Text = Program.p.CurrentFullName;
@@ -240,6 +245,7 @@ namespace PRIZ
                     Program.fEditModuleEntity.Show();
                     this.Hide();
                 }
+                //Program.fEditModuleEntity.lDescription.Text= lbDes
             }
             void btnDeleteTask_Click(object sender, EventArgs e)
             {
@@ -296,6 +302,7 @@ namespace PRIZ
                 if (MessageBox.Show("Вы уверены, что хотите сменить пользователя? Данные не будут сохранены." + Environment.NewLine + "Продолжить?", "Подтверждение", MessageBoxButtons.OKCancel) == DialogResult.OK)
                 {
                     Program.InitWindow(Forms.fLogin);
+                    Program.fLogin.StartPosition = FormStartPosition.Manual;
                     Program.fLogin.tbLogin.Text = "Фамилия и имя";
                     Program.fLogin.tbLogin.Font = new System.Drawing.Font("Segoe UI", 10.75F);
                     Program.fLogin.tbLogin.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(126)))), ((int)(((byte)(126)))));

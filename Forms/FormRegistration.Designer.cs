@@ -70,7 +70,8 @@
             this.tbSurename.Name = "tbSurename";
             this.tbSurename.Size = new System.Drawing.Size(172, 20);
             this.tbSurename.TabIndex = 1;
-            this.tbSurename.Text = "Фамилия";
+            this.tbSurename.Tag = "0";
+            this.tbSurename.Text = "Фамилия *";
             this.tbSurename.Enter += new System.EventHandler(this.TextBox_GotFocus);
             this.tbSurename.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tb_KeyPress);
             this.tbSurename.Leave += new System.EventHandler(this.TextBox_LostFocus);
@@ -85,6 +86,7 @@
             this.tbCountry.Name = "tbCountry";
             this.tbCountry.Size = new System.Drawing.Size(172, 20);
             this.tbCountry.TabIndex = 1;
+            this.tbCountry.Tag = "2";
             this.tbCountry.Text = "Страна";
             this.tbCountry.Enter += new System.EventHandler(this.TextBox_GotFocus);
             this.tbCountry.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tb_KeyPress);
@@ -100,7 +102,8 @@
             this.tbName.Name = "tbName";
             this.tbName.Size = new System.Drawing.Size(172, 20);
             this.tbName.TabIndex = 1;
-            this.tbName.Text = "Имя";
+            this.tbName.Tag = "1";
+            this.tbName.Text = "Имя *";
             this.tbName.Enter += new System.EventHandler(this.TextBox_GotFocus);
             this.tbName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tb_KeyPress);
             this.tbName.Leave += new System.EventHandler(this.TextBox_LostFocus);
@@ -117,6 +120,7 @@
             this.tbAbout.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.tbAbout.Size = new System.Drawing.Size(403, 115);
             this.tbAbout.TabIndex = 1;
+            this.tbAbout.Tag = "3";
             this.tbAbout.Text = "О себе";
             this.tbAbout.Enter += new System.EventHandler(this.TextBox_GotFocus);
             this.tbAbout.Leave += new System.EventHandler(this.TextBox_LostFocus);
@@ -313,6 +317,7 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(200, 42);
             this.panel2.TabIndex = 4;
+            this.panel2.Tag = "1";
             // 
             // panel5
             // 

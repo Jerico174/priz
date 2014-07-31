@@ -34,7 +34,6 @@
             this.btnSaveChanges = new System.Windows.Forms.Button();
             this.btnEditTasks = new System.Windows.Forms.Button();
             this.lName = new System.Windows.Forms.TextBox();
-            this.lDescription = new System.Windows.Forms.TextBox();
             this.pnlEdited = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
@@ -45,6 +44,7 @@
             this.btnModules = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.lDescription = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pbModule)).BeginInit();
             this.pnlEdited.SuspendLayout();
             this.SuspendLayout();
@@ -78,7 +78,7 @@
             this.btnSaveChanges.Location = new System.Drawing.Point(811, 413);
             this.btnSaveChanges.Name = "btnSaveChanges";
             this.btnSaveChanges.Size = new System.Drawing.Size(162, 31);
-            this.btnSaveChanges.TabIndex = 7;
+            this.btnSaveChanges.TabIndex = 4;
             this.btnSaveChanges.Text = "Сохранить изменения";
             this.btnSaveChanges.UseVisualStyleBackColor = false;
             this.btnSaveChanges.Click += new System.EventHandler(this.btnSaveChanges_Click);
@@ -96,7 +96,7 @@
             this.btnEditTasks.Location = new System.Drawing.Point(610, 413);
             this.btnEditTasks.Name = "btnEditTasks";
             this.btnEditTasks.Size = new System.Drawing.Size(162, 31);
-            this.btnEditTasks.TabIndex = 8;
+            this.btnEditTasks.TabIndex = 5;
             this.btnEditTasks.Text = "Редактировать задания";
             this.btnEditTasks.UseVisualStyleBackColor = false;
             this.btnEditTasks.Click += new System.EventHandler(this.btnEditTasks_Click);
@@ -109,21 +109,9 @@
             this.lName.Location = new System.Drawing.Point(610, 117);
             this.lName.Name = "lName";
             this.lName.Size = new System.Drawing.Size(363, 46);
-            this.lName.TabIndex = 9;
+            this.lName.TabIndex = 2;
             this.lName.TextChanged += new System.EventHandler(this.lName_TextChanged);
             this.lName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tb_KeyPress);
-            // 
-            // lDescription
-            // 
-            this.lDescription.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.lDescription.Font = new System.Drawing.Font("Segoe UI Light", 12.75F);
-            this.lDescription.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(126)))), ((int)(((byte)(126)))));
-            this.lDescription.Location = new System.Drawing.Point(610, 182);
-            this.lDescription.Multiline = true;
-            this.lDescription.Name = "lDescription";
-            this.lDescription.Size = new System.Drawing.Size(363, 205);
-            this.lDescription.TabIndex = 10;
-            this.lDescription.TextChanged += new System.EventHandler(this.lName_TextChanged);
             // 
             // pnlEdited
             // 
@@ -145,7 +133,7 @@
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(113)))), ((int)(((byte)(113)))), ((int)(((byte)(113)))));
             this.label1.Location = new System.Drawing.Point(362, 88);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(346, 40);
+            this.label1.Size = new System.Drawing.Size(349, 40);
             this.label1.TabIndex = 0;
             this.label1.Text = "Модуль успешно изменён";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -283,9 +271,21 @@
             this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(101)))), ((int)(((byte)(101)))), ((int)(((byte)(101)))));
             this.label4.Location = new System.Drawing.Point(147, 71);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(238, 38);
-            this.label4.TabIndex = 75;
+            this.label4.Size = new System.Drawing.Size(242, 38);
+            this.label4.TabIndex = 1;
             this.label4.Text = "Редактор модулей";
+            // 
+            // lDescription
+            // 
+            this.lDescription.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lDescription.Font = new System.Drawing.Font("Segoe UI Light", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lDescription.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(126)))), ((int)(((byte)(126)))));
+            this.lDescription.Location = new System.Drawing.Point(610, 171);
+            this.lDescription.Multiline = true;
+            this.lDescription.Name = "lDescription";
+            this.lDescription.Size = new System.Drawing.Size(363, 216);
+            this.lDescription.TabIndex = 3;
+            this.lDescription.TextChanged += new System.EventHandler(this.lName_TextChanged);
             // 
             // FormEditModuleEntity
             // 
@@ -294,6 +294,7 @@
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1008, 688);
             this.Controls.Add(this.pnlEdited);
+            this.Controls.Add(this.lDescription);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.btnAbout);
@@ -301,7 +302,6 @@
             this.Controls.Add(this.btnModules);
             this.Controls.Add(this.btnBack);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.lDescription);
             this.Controls.Add(this.btnEditTasks);
             this.Controls.Add(this.lName);
             this.Controls.Add(this.btnSaveChanges);
@@ -330,7 +330,6 @@
         private System.Windows.Forms.Button btnSaveChanges;
         private System.Windows.Forms.Button btnEditTasks;
         private System.Windows.Forms.TextBox lName;
-        private System.Windows.Forms.TextBox lDescription;
         private System.Windows.Forms.Panel pnlEdited;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Timer timer1;
@@ -341,5 +340,6 @@
         private System.Windows.Forms.Button btnModules;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox lDescription;
     }
 }

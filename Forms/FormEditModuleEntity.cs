@@ -14,6 +14,7 @@ namespace PRIZ
 {
     public partial class FormEditModuleEntity : Form
     {
+        bool changed = false;
         bool error = false;
         bool def = false;
         OpenFileDialog ofd = new OpenFileDialog();
@@ -22,6 +23,11 @@ namespace PRIZ
         public FormEditModuleEntity()
         {
             InitializeComponent();
+            if (Program.p.AdminMode)
+            {
+                label2.Visible = false;
+                label3.Visible = false;
+            }
             this.Size = Program.currentSize;
             this.Location = Program.currentLocation;
             label2.Text = Program.p.CurrentFullName;
@@ -31,7 +37,7 @@ namespace PRIZ
             //this.Size = Program.currentSize;
             //this.Location = Program.currentLocation;
             pbModule.ImageLocation = currentModule._pic;
-            lDescription.Text = currentModule._annotation;
+            lDescription.Text = currentModule._annotation.Replace("\n", "\r\n");
             lName.Text = currentModule._name;
 
             btnSaveChanges.Enabled = false;
@@ -52,6 +58,8 @@ namespace PRIZ
             }
             else if (t == DialogResult.Cancel)
             {
+                btnSaveChanges.Enabled = true;
+                btnSaveChanges.BackColor = Color.FromArgb(103, 103, 103);
                 pbModule.Image = Properties.Resources.iconimage;
                 def = true;
             }
@@ -121,11 +129,22 @@ namespace PRIZ
 
         private void btnSaveChanges_Click(object sender, EventArgs e)
         {
-            if (!error)
+            changed = false;
+            lName.Text.Trim();
+            lName.Text = Program.p.ReplaceMultispaces(lName.Text);
+            if (lDescription.Text == "Описание модуля")
             {
-                currentModule._filename = Program.p.currentModule._filename;
+                lDescription.Text = "";
+            }
+            if (lName.Text == " " || lName.Text == "" || lName.Text == "Название модуля")
+            {
+                MessageBox.Show("Заполнены не все поля");
+            }
+            else
+            {
+                Program.p.currentModule._filename = lName.Text; 
                 NewModule newModule = new NewModule(lName.Text, lDescription.Text, pbModule.RectangleToScreen(pbModule.ClientRectangle), oldModuleName);
-                oldModuleName = lName.Text;
+                oldModuleName = currentModule._filename;
                 pnlEdited.Visible = true;
                 timer1.Enabled = true;
                 btnSaveChanges.Enabled = false;
@@ -142,7 +161,7 @@ namespace PRIZ
         {
             Program.InitWindow(Forms.fEditTask);
             Program.fEditTask.Show();
-
+            //CurrentProgram.p.currentModule._filename;
             this.Hide();
         }
         private void tb_KeyPress(object sender, KeyPressEventArgs e)
@@ -151,6 +170,7 @@ namespace PRIZ
             if (l=='\\' ||  l=='/' ||  l==':' ||  l=='*' ||  l=='?' ||  l=='"' ||  l=='<' ||  l=='>' ||  l=='|')
             {
                 e.Handled = true;
+                bool changed = true;
             }
         }
 
@@ -159,6 +179,7 @@ namespace PRIZ
             if (MessageBox.Show("Вы уверены, что хотите сменить пользователя? Данные не будут сохранены." + Environment.NewLine + "Продолжить?", "Подтверждение", MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
                 Program.InitWindow(Forms.fLogin);
+                Program.fLogin.StartPosition = FormStartPosition.Manual;
                 Program.fLogin.tbLogin.Text = "Фамилия и имя";
                 Program.fLogin.tbLogin.Font = new System.Drawing.Font("Segoe UI", 10.75F);
                 Program.fLogin.tbLogin.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(126)))), ((int)(((byte)(126)))));
@@ -169,9 +190,21 @@ namespace PRIZ
 
         private void btnBack_Click(object sender, EventArgs e)
         {
-            Program.InitWindow(Forms.fEditModule);
-            Program.fEditModule.Show();
-            this.Hide();
+            if (changed)
+            {
+                if (MessageBox.Show("Вы уверены, что хотите перейти в модули? Данные не будут сохранены." + Environment.NewLine + " Продолжить?", "Подтверждение", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                {
+                    Program.InitWindow(Forms.fEditModule);
+                    Program.fEditModule.Show();
+                    this.Hide();
+                }
+            }
+            else
+            {
+                Program.InitWindow(Forms.fEditModule);
+                Program.fEditModule.Show();
+                this.Hide();
+            }
         }
         private void Form_SizeChanged(object sender, EventArgs e)
         {
@@ -194,7 +227,16 @@ namespace PRIZ
 
         private void btnModules_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Вы уверены, что хотите перейти в модули? Данные не будут сохранены." + Environment.NewLine + " Продолжить?", "Подтверждение", MessageBoxButtons.OKCancel) == DialogResult.OK)
+            if (changed)
+            {
+                if (MessageBox.Show("Вы уверены, что хотите перейти в модули? Данные не будут сохранены." + Environment.NewLine + " Продолжить?", "Подтверждение", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                {
+                    Program.InitWindow(Forms.fModules);
+                    Program.fModules.Show();
+                    this.Hide();
+                }
+            }
+            else
             {
                 Program.InitWindow(Forms.fModules);
                 Program.fModules.Show();
@@ -218,6 +260,7 @@ namespace PRIZ
 
         private void lName_TextChanged(object sender, EventArgs e)
         {
+            bool changed = true;
             btnSaveChanges.Enabled = true;
             btnSaveChanges.BackColor = Color.FromArgb(103, 103, 103);
         }

@@ -24,6 +24,7 @@ namespace PRIZ
             Task n = new Task();
             this._name = name;
             this._description = given;
+            this._phenomenas = phenomenas;
             if (oldTaskName != name)
             {
                 Directory.Move(@"modules\" + currentModule + @"\" + oldTaskName, @"modules\" + currentModule + @"\" + _name);
@@ -105,7 +106,7 @@ namespace PRIZ
             Bitmap b = new Bitmap(r.Width, r.Height);
             Graphics g = Graphics.FromImage(b);
             g.CopyFromScreen(r.Location, new Point(0, 0), r.Size);
-            b.Save(@"modules\" + FormNewModule._currentModuleName + @"\"+ name + @"\mainpic.png");
+            b.Save(@"modules\" + FormNewModule._currentModuleName.Trim() + @"\"+ name.Trim() + @"\mainpic.png");
         }
 
         public void SaveImage(Rectangle r, string name, string modulePath)
