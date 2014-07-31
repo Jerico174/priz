@@ -8,7 +8,7 @@ namespace PRIZ
 {
     public class ProgramInstance
     {
-        public bool AdminMode = true;
+        public bool AdminMode = false;
         public List<User> _users;
         public List<Task> _tasks;
         public Answer answer;

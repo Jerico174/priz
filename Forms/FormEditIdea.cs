@@ -35,5 +35,20 @@ namespace PRIZ
             tbToEdit.Text = _text;
             btnEditIdea.Text = _textOnButton;
         }
+
+        private void tbToEdit_TextChanged(object sender, EventArgs e)
+        {
+            string s = Program.p.ReplaceMultispaces((sender as TextBox).Text);
+            if (s == "" || s == " ")
+            {
+                btnEditIdea.Enabled = false;
+                btnEditIdea.BackColor = Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            }
+            else
+            {
+                btnEditIdea.Enabled = true;
+                btnEditIdea.BackColor = Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(126)))), ((int)(((byte)(126)))));
+            }
+        }
     }
 }

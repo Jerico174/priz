@@ -181,10 +181,6 @@ namespace PRIZ
                 
             }
         }
-        private void b_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("ХЕУХУЕХУХУ");
-        }
         private void btnBack_Click(object sender, EventArgs e)
         {
             Program.fPhenomenas.WindowState = Program.fAllIdeas.WindowState;

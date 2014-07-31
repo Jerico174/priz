@@ -35,14 +35,15 @@
             // 
             // tbToEdit
             // 
-            this.tbToEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbToEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tbToEdit.Location = new System.Drawing.Point(12, 12);
             this.tbToEdit.Multiline = true;
             this.tbToEdit.Name = "tbToEdit";
             this.tbToEdit.Size = new System.Drawing.Size(294, 204);
             this.tbToEdit.TabIndex = 0;
+            this.tbToEdit.TextChanged += new System.EventHandler(this.tbToEdit_TextChanged);
             // 
             // btnEditIdea
             // 
